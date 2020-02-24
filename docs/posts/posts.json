@@ -1,0 +1,17 @@
+[
+  {
+    "path": "posts/welcome/",
+    "title": "Welcome to Data Visualization Winter 2020",
+    "description": "Welcome to our new blog, Data Visualization Winter 2020. We hope you enjoy \nreading what we have to say!",
+    "author": [
+      {
+        "name": "Joanna Wright",
+        "url": "https://github.com/jhwrigh23"
+      }
+    ],
+    "date": "2020-02-24",
+    "categories": [],
+    "preview": {},
+    "last_modified": "2020-02-24T10:32:02-08:00"
+  }
+]

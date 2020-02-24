@@ -4,9 +4,13 @@ description: |
   Data Visualization Winter 2020
 output_dir: "docs"
 navbar:
+  left: 
+    - text: "Hi!"
   right:
     - text: "Home"
       href: index.html
     - text: "About"
       href: about.html
+    - icon: fab fa-github
+      href: https://github.com/jhwrigh23/class_website
 output: distill::distill_article

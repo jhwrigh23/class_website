@@ -31,5 +31,9 @@ distill::create_post()
 
 ```
 
-
+<aside>
+```{r}
+# This is how you insert a side note
+```
+</aside>
 

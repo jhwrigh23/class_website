@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
+  <channel>
+    <title>Data Visualization Winter 2020</title>
+    <link>https://github.com/jhwrigh23/class_website</link>
+    <atom:link href="https://github.com/jhwrigh23/class_website/index.xml" rel="self" type="application/rss+xml"/>
+    <description>Data Visualization Winter 2020
+</description>
+    <generator>Distill</generator>
+    <lastBuildDate>Mon, 24 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Welcome to Data Visualization Winter 2020</title>
+      <dc:creator>Joanna Wright</dc:creator>
+      <link>https://github.com/jhwrigh23/class_website/posts/welcome</link>
+      <description>Welcome to our new blog, Data Visualization Winter 2020. We hope you enjoy 
+reading what we have to say!</description>
+      <guid>https://github.com/jhwrigh23/class_website/posts/welcome</guid>
+      <pubDate>Mon, 24 Feb 2020 00:00:00 +0000</pubDate>
+    </item>
+  </channel>
+</rss>

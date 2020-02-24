@@ -3,6 +3,7 @@ title: "Data Visualization Winter 2020"
 description: |
   Data Visualization Winter 2020
 output_dir: "docs"
+base_url: https://github.com/jhwrigh23/class_website
 navbar:
   left: 
     - text: "Hi!"

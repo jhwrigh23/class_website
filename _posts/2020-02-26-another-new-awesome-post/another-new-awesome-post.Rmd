@@ -1,0 +1,57 @@
+---
+title: "Demo"
+description: |
+  Notes from class demo of Rmd blog development.
+author:
+  - name: Joanna Wright
+    url: https://github.com/jhwrigh23
+date: 02-26-2020
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      fig.height = 7)
+
+# remotes::install_github("rstudio/gt")
+
+library(tidyverse)
+library(ggplot2)
+```
+
+Here's how to create a plot and display it in different ways 
+
+```{r}
+
+plot_1_a
+# why is this not showing up on the website when I build? 
+
+```
+
+Now let's look at the the same plot a different way (see Figures code from slides) 
+
+```{r layout = "l-body-outset"}
+
+
+ggplot(mpg, aes(displ, cty)) +
+  geom_point() +
+  geom_smooth()
+
+```
+
+```{r showing a table}
+
+mpg %>%
+  gt::gt()
+
+```
+
+```{r a fancier table}
+
+mpg %>%
+  reactable::reactable()
+
+```
+

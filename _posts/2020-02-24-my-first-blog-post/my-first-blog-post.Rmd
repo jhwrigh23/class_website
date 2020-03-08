@@ -21,7 +21,7 @@ knitr::opts_chunk$set(echo = FALSE)
 distill::create_post()
 
 # can add this to YAML
-#categories: 
+# categories: 
 #- category1
 #- category2
 

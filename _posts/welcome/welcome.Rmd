@@ -1,8 +1,7 @@
 ---
-title: "Welcome to Data Visualization Winter 2020"
+title: "Kindergarten Readiness in Oregon"
 description: |
-  Welcome to our new blog, Data Visualization Winter 2020. We hope you enjoy 
-  reading what we have to say!
+  Final project for EDLD 610: Data Vizualiation, Winter 2020
 author:
   - name: Joanna Wright 
     url: https://github.com/jhwrigh23
@@ -15,12 +14,24 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = TRUE)
 
-# Learn more about creating blogs with Distill at:
-# https://rstudio.github.io/distill/blog.html
+library(tidyverse)
+library(rio)
+library(here)
+library(janitor)
+library(maps)
+library(mapdata)
+library(ggplot2)
+
+
+# install.packages("ggtext")
+# this didn't work because ggtext is not availabe for R  version 3.6.1
 
 ```
 
+```{r}
+
+```
 
 

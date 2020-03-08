@@ -1,0 +1,246 @@
+---
+title: "final_project_1"
+author: "Joanna Wright"
+date: "1/30/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(rio)
+library(here)
+library(janitor)
+library(maps)
+library(mapdata)
+library(ggtext)
+```
+
+The data for this project come from the Oregon Kindergarten Assessment (https://www.oregon.gov/ode/educator-resources/assessment/Pages/Kindergarten-Assessment.aspx). The OKA is comprised of three measures: Early Literacy, Early Math, and Approaches to Learning, which are understood to be key for future academic success. For this project, I focused specifically on one aspect of Approaches to Learning: self regulation. 
+
+
+```{r loading the data}
+
+d <- import(here("data", "ka_2018-19_lookback_report.xlsx")) %>%
+  clean_names()
+
+counties <- map_data("county")
+or_county <- subset(counties, region == "oregon")
+
+```
+
+
+```{r cleaning the data}
+
+d1 <- d %>%
+  rename(county = oregon_kindergarten_assessment,
+         district_id = x2,
+         district = x3,
+         inst_id = x4,
+         inst_name = x5,
+         inst_type = x6,
+         stu_grp_type = x7,
+         stu_grp = x8,
+         avg_self_reg = x9) %>%
+  select(c(1:9))
+
+d1 <- d1 %>%
+  filter(avg_self_reg != "*")
+
+# need to double check online what the * means and make sure it's ok to remove. it removed a lot of rows!! 
+
+d1 = d1[-1,]
+
+```
+
+The purpose of Plot 1 is to explore differences in average self-regulation scores across counties and represent this geographically. To do so, I needed to join the OKA dataset with a Oregon county mapping data. 
+
+```{r Viz #1 }
+
+# identifying keys, joining: 
+
+d %>%
+  count(oregon_kindergarten_assessment, x2, x3, x4, x5, x6, x7, x8) %>%
+  filter(n>1)
+
+or_county %>%
+  count(order) %>%
+  filter(n>1)
+
+str(d1)
+d1$avg_self_reg = as.numeric(d1$avg_self_reg)
+
+d2 <- d1 %>%
+  group_by(county) %>%
+  summarise(avg_self_reg_county = mean(avg_self_reg))
+
+or_county <- or_county %>%
+  rename(county = subregion)
+
+d2 <- d2 %>%
+  mutate(county = str_to_lower(county))
+
+join1 <- left_join(d2, or_county)
+
+# plotting:
+
+plot_1_a <- join1 %>%
+ggplot() + 
+    geom_polygon(aes(long, lat, group = group, fill = avg_self_reg_county)) + 
+    coord_fixed(1.3) +
+    scale_fill_viridis_c(name = "Score (1-5 scale)", 
+                         option = "inferno") +
+    labs(title = "Average Self Regulation Scores by County in Oregon",
+         caption = "Data from https://www.oregon.gov/ode/educator-resources/assessment/Pages/Kindergarten-Assessment.aspx",
+         x = NULL,
+         y = NULL) +
+     theme(axis.text.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks = element_blank(),
+        rect = element_blank())
+
+
+```
+
+This plot would be more informative if the counties were labeled.  
+
+```{r Viz #1 Refining}
+
+join1 %>%
+ggplot() + 
+    geom_polygon(aes(long, lat, group = group, fill = avg_self_reg_county)) + 
+    coord_fixed(1.3) +
+    scale_fill_viridis_c(name = "Score (1-5 scale)", 
+                         option = "inferno") +
+    labs(title = "Average Self Regulation Scores by County in Oregon",
+         x = NULL,
+         y = NULL) +
+     theme(axis.text.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks = element_blank(),
+        rect = element_blank()) +
+  geom_text(data = or_county, aes(long, lat, label = county), size = 2)
+
+# Still to do: 
+# Figure out how to reduce number of and center county labels 
+
+```
+
+The purpose of Plot 2 is to explore the degree to which self-regulation scores vary by race in Oregon. Because the student group variable included both racial and gender categories, I filtered to keep only race categories, and in plotting reordered them to show highest to lowest average self-regulation scores.  
+
+```{r Viz #2 avg self reg by race}
+
+d2a <- d1 %>%
+  filter(stu_grp == "Asian" |
+           stu_grp == "White" |
+           stu_grp == "Multi-Racial" |
+           stu_grp == "Native Hawaiian/Pacific Islander" |
+           stu_grp == "Hispanic/Latino" |
+           stu_grp == "Black/African American" |
+           stu_grp == "American Indian/Alaska Native")
+
+plot_2_a <- d2a %>%
+  group_by(stu_grp) %>%
+  summarise(avg_self_reg_race = mean(avg_self_reg)) %>%
+  ggplot(aes(fct_reorder(stu_grp, avg_self_reg_race), avg_self_reg_race)) +
+  geom_point() +
+  coord_flip() + 
+  labs(title = "Average self-regulation by race",
+       x = NULL,
+       y = "Self-regulation score")
+
+```
+
+Rather than just having an overall average score by race, it may be more informative to see distributions for each race, as the average can obscure information such as the range.  
+
+```{r Viz #2 alternative}
+
+plot_2_b <- ggplot(d2a, aes(avg_self_reg, stu_grp)) +
+  ggridges::geom_density_ridges(color = "white", 
+                                fill = "cornflowerblue", 
+                                alpha = 0.8) + 
+  theme_minimal(base_size = 10) + 
+  scale_x_continuous("Self Regulation Scores") +
+  theme(panel.grid.major.y = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.x = element_line(color = "gray80")) +
+  labs(title = "Self-Regulation Scores by Race",
+       x = NULL,
+       y = NULL)
+  
+```
+
+Finally, for Plot 2 I was also interested in understanding disparities in self-regulation scores by race, and, in particular, identifying counties in which racial disparities were greatest.
+
+```{r Viz 2 alternative}
+
+# goes here
+
+```
+
+
+
+```{r Viz #3 average self reg by county over time}
+
+# loading 2013 - 2014 data set 
+
+dfirstwave <- import(here("data", "ka_2013-14_lookback_report.xlsx")) %>%
+  clean_names()
+
+
+dfirstwave1 <- dfirstwave %>%
+  rename(county = oregon_kindergarten_assessment,
+         district_id = x2,
+         district = x3,
+         inst_id = x4,
+         inst_name = x5,
+         inst_type = x6,
+         stu_grp_type = x7,
+         stu_grp = x8,
+         avg_self_reg = x9) %>%
+  select(c(1:9))
+
+dfirstwave1 <- dfirstwave1 %>%
+  filter(avg_self_reg != "*")
+
+dfirstwave1 = dfirstwave1[-1,]
+
+
+dfirstwave1$avg_self_reg = as.numeric(dfirstwave1$avg_self_reg)
+
+dfirstwave2 <- dfirstwave1 %>%
+  group_by(county) %>%
+  summarise(avg_self_reg_county_firstwave = mean(avg_self_reg))
+
+dfirstwave2 <- dfirstwave2 %>%
+  mutate(county = str_to_lower(county))
+
+join2 <- left_join(d2, dfirstwave2)
+
+join2 <- join2 %>%
+  rename(avg_self_reg_2013 = avg_self_reg_county_firstwave,
+         avg_self_reg_2018 = avg_self_reg_county)
+
+join2 <- join2 %>%
+  pivot_longer(
+    cols = 2:3,
+    names_to = "Year", 
+    values_to = "Score",
+    names_pattern = ".+_.+_.+_(.+)"
+  )
+
+plot_3_a <- join2 %>%
+  ggplot(aes(county, Score, color = Year)) +
+  geom_point() +
+  coord_flip() + 
+  geom_line(aes(group = county), color = "gray40", size = 1) +
+  theme(
+    plot.title.position = "plot",
+    plot.subtitle = element_markdown()) +
+  labs(title = "Self Regulation Score Changes from 2013 to 2018",
+       subtitle = "<span style = 'color:#FF6C67;'>2013</span> comparied to <span style = 'color:#00C2C6;'>2018 </span>change.",
+       x = NULL,
+       y = "Score (on 1-5 scale)")
+```
+

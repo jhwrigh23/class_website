@@ -33,7 +33,7 @@ or_county <- subset(counties, region == "oregon")
 
 ```{r cleaning the data}
 
-d1 <- d %>%
+d_tidy <- d %>%
   rename(county = oregon_kindergarten_assessment,
          district_id = x2,
          district = x3,
@@ -45,12 +45,12 @@ d1 <- d %>%
          avg_self_reg = x9) %>%
   select(c(1:9))
 
-d1 <- d1 %>%
+d_tidy <- d_tidy %>%
   filter(avg_self_reg != "*")
 
 # need to double check online what the * means and make sure it's ok to remove. it removed a lot of rows!! 
 
-d1 = d1[-1,]
+d_tidy = d_tidy[-1,]
 
 ```
 
@@ -68,20 +68,20 @@ or_county %>%
   count(order) %>%
   filter(n>1)
 
-str(d1)
-d1$avg_self_reg = as.numeric(d1$avg_self_reg)
+str(d_tidy)
+d_tidy$avg_self_reg = as.numeric(d_tidy$avg_self_reg)
 
-d2 <- d1 %>%
+d1 <- d_tidy %>%
   group_by(county) %>%
   summarise(avg_self_reg_county = mean(avg_self_reg))
 
 or_county <- or_county %>%
   rename(county = subregion)
 
-d2 <- d2 %>%
+d1 <- d1 %>%
   mutate(county = str_to_lower(county))
 
-join1 <- left_join(d2, or_county)
+join1 <- left_join(d1, or_county)
 
 # plotting:
 
@@ -131,7 +131,7 @@ The purpose of Plot 2 is to explore the degree to which self-regulation scores v
 
 ```{r Viz #2 avg self reg by race}
 
-d2a <- d1 %>%
+d2 <- d_tidy %>%
   filter(stu_grp == "Asian" |
            stu_grp == "White" |
            stu_grp == "Multi-Racial" |
@@ -140,7 +140,7 @@ d2a <- d1 %>%
            stu_grp == "Black/African American" |
            stu_grp == "American Indian/Alaska Native")
 
-plot_2_a <- d2a %>%
+plot_2_a <- d2 %>%
   group_by(stu_grp) %>%
   summarise(avg_self_reg_race = mean(avg_self_reg)) %>%
   ggplot(aes(fct_reorder(stu_grp, avg_self_reg_race), avg_self_reg_race)) +
@@ -154,9 +154,9 @@ plot_2_a <- d2a %>%
 
 Rather than just having an overall average score by race, it may be more informative to see distributions for each race, as the average can obscure information such as the range.  
 
-```{r Viz #2 alternative}
+```{r Viz #2 alternatives}
 
-plot_2_b <- ggplot(d2a, aes(avg_self_reg, stu_grp)) +
+plot_2_b <- ggplot(d2, aes(avg_self_reg, stu_grp)) +
   ggridges::geom_density_ridges(color = "white", 
                                 fill = "cornflowerblue", 
                                 alpha = 0.8) + 
@@ -188,6 +188,7 @@ Finally, for Plot 2 I was also interested in understanding disparities in self-r
 dfirstwave <- import(here("data", "ka_2013-14_lookback_report.xlsx")) %>%
   clean_names()
 
+# tidying the 2013 and 2018 data sets in order to join them: 
 
 dfirstwave1 <- dfirstwave %>%
   rename(county = oregon_kindergarten_assessment,
@@ -206,7 +207,6 @@ dfirstwave1 <- dfirstwave1 %>%
 
 dfirstwave1 = dfirstwave1[-1,]
 
-
 dfirstwave1$avg_self_reg = as.numeric(dfirstwave1$avg_self_reg)
 
 dfirstwave2 <- dfirstwave1 %>%
@@ -216,11 +216,14 @@ dfirstwave2 <- dfirstwave1 %>%
 dfirstwave2 <- dfirstwave2 %>%
   mutate(county = str_to_lower(county))
 
-join2 <- left_join(d2, dfirstwave2)
+d_tidy <- d_tidy %>%
+  mutate(county = str_to_lower(county))
+
+join2 <- left_join(d_tidy, dfirstwave2)
 
 join2 <- join2 %>%
   rename(avg_self_reg_2013 = avg_self_reg_county_firstwave,
-         avg_self_reg_2018 = avg_self_reg_county)
+         avg_self_reg_2018 = avg_self_reg)
 
 join2 <- join2 %>%
   pivot_longer(
@@ -230,6 +233,7 @@ join2 <- join2 %>%
     names_pattern = ".+_.+_.+_(.+)"
   )
 
+# why is this not working?? 
 plot_3_a <- join2 %>%
   ggplot(aes(county, Score, color = Year)) +
   geom_point() +

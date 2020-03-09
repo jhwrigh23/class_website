@@ -1,0 +1,110 @@
+---
+title: "Visualization 2"
+description: |
+  A short description of the post.
+author:
+  - name: Joanna Wright
+    url: https://github.com/jhwrigh23
+date: 03-09-2020
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+```
+
+```{r}
+
+library(tidyverse)
+library(rio)
+library(here)
+library(janitor)
+library(maps)
+library(mapdata)
+library(ggtext)
+
+```
+
+
+```{r loading-the-data}
+
+d <- import(here("data", "ka_2018-19_lookback_report.xlsx")) %>%
+  clean_names()
+
+counties <- map_data("county")
+or_county <- subset(counties, region == "oregon")
+
+```
+
+```{r cleaning-the-data}
+
+d_tidy <- d %>%
+  rename(county = oregon_kindergarten_assessment,
+         district_id = x2,
+         district = x3,
+         inst_id = x4,
+         inst_name = x5,
+         inst_type = x6,
+         stu_grp_type = x7,
+         stu_grp = x8,
+         avg_self_reg = x9) %>%
+  select(c(1:9))
+
+d_tidy <- d_tidy %>%
+  filter(avg_self_reg != "*")
+
+# need to double check online what the * means and make sure it's ok to remove. it removed a lot of rows!! 
+
+d_tidy = d_tidy[-1,]
+
+str(d_tidy)
+d_tidy$avg_self_reg = as.numeric(d_tidy$avg_self_reg)
+
+```
+
+The purpose of Plot 2 is to explore the degree to which self-regulation scores vary by race in Oregon. Because the student group variable included both racial and gender categories, I filtered to keep only race categories, and in plotting reordered them to show highest to lowest average self-regulation scores.  
+
+```{r viz2}
+
+d2 <- d_tidy %>%
+  filter(stu_grp == "Asian" |
+           stu_grp == "White" |
+           stu_grp == "Multi-Racial" |
+           stu_grp == "Native Hawaiian/Pacific Islander" |
+           stu_grp == "Hispanic/Latino" |
+           stu_grp == "Black/African American" |
+           stu_grp == "American Indian/Alaska Native")
+
+d2 %>%
+  group_by(stu_grp) %>%
+  summarise(avg_self_reg_race = mean(avg_self_reg)) %>%
+  ggplot(aes(fct_reorder(stu_grp, avg_self_reg_race), avg_self_reg_race)) +
+  geom_point() +
+  coord_flip() + 
+  labs(title = "Average self-regulation by race",
+       x = NULL,
+       y = "Self-regulation score")
+
+```
+
+Rather than just having an overall average score by race, it may be more informative to see distributions for each race, as the average can obscure information such as the range.  
+
+```{r viz2-alternative}
+
+ggplot(d2, aes(avg_self_reg, stu_grp)) +
+  ggridges::geom_density_ridges(color = "white", 
+                                fill = "cornflowerblue", 
+                                alpha = 0.8) + 
+  theme_minimal(base_size = 10) + 
+  scale_x_continuous("Self Regulation Scores") +
+  theme(panel.grid.major.y = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.x = element_line(color = "gray80")) +
+  labs(title = "Self-Regulation Scores by Race",
+       x = NULL,
+       y = NULL)
+  
+```

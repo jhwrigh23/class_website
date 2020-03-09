@@ -1,7 +1,7 @@
 ---
-title: "Demo"
+title: "Visualization 1"
 description: |
-  Notes from class demo of Rmd blog development.
+  Mapping self-regulation scores by county
 author:
   - name: Joanna Wright
     url: https://github.com/jhwrigh23
@@ -14,26 +14,133 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
                       fig.height = 7)
+```
 
+Here's the libraries I'm using for this post. 
+```{r libraries}
 # remotes::install_github("rstudio/gt")
 
 library(tidyverse)
-library(ggplot2)
+library(rio)
+library(here)
+library(janitor)
+library(maps)
+library(mapdata)
+library(ggtext)
 ```
 
 Here's how to create a plot and display it in different ways 
 
-```{r}
+```{r loading the data}
 
-plot_1_a
-# why is this not showing up on the website when I build? 
+d <- import(here("data", "ka_2018-19_lookback_report.xlsx")) %>%
+  clean_names()
+
+counties <- map_data("county")
+or_county <- subset(counties, region == "oregon")
 
 ```
+
+
+```{r cleaning the data}
+
+d_tidy <- d %>%
+  rename(county = oregon_kindergarten_assessment,
+         district_id = x2,
+         district = x3,
+         inst_id = x4,
+         inst_name = x5,
+         inst_type = x6,
+         stu_grp_type = x7,
+         stu_grp = x8,
+         avg_self_reg = x9) %>%
+  select(c(1:9))
+
+d_tidy <- d_tidy %>%
+  filter(avg_self_reg != "*")
+
+# need to double check online what the * means and make sure it's ok to remove. it removed a lot of rows!! 
+
+d_tidy = d_tidy[-1,]
+
+str(d_tidy)
+d_tidy$avg_self_reg = as.numeric(d_tidy$avg_self_reg)
+
+```
+
+The purpose of Plot 1 is to explore differences in average self-regulation scores across counties and represent this geographically. To do so, I needed to join the OKA dataset with a Oregon county mapping data. 
+
+```{r viz1}
+
+# identifying keys, joining: 
+
+d %>%
+  count(oregon_kindergarten_assessment, x2, x3, x4, x5, x6, x7, x8) %>%
+  filter(n>1)
+
+or_county %>%
+  count(order) %>%
+  filter(n>1)
+
+d1 <- d_tidy %>%
+  group_by(county) %>%
+  summarise(avg_self_reg_county = mean(avg_self_reg))
+
+or_county <- or_county %>%
+  rename(county = subregion)
+
+d1 <- d1 %>%
+  mutate(county = str_to_lower(county))
+
+join1 <- left_join(d1, or_county)
+
+# plotting:
+
+plot_1_a <- join1 %>%
+ggplot() + 
+    geom_polygon(aes(long, lat, group = group, fill = avg_self_reg_county)) + 
+    coord_fixed(1.3) +
+    scale_fill_viridis_c(name = "Score (1-5 scale)", 
+                         option = "inferno") +
+    labs(title = "Average Self Regulation Scores by County in Oregon",
+         caption = "Data from https://www.oregon.gov/ode/educator-resources/assessment/Pages/Kindergarten-Assessment.aspx",
+         x = NULL,
+         y = NULL) +
+     theme(axis.text.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks = element_blank(),
+        rect = element_blank())
+
+plot_1_a
+```
+
+This plot would be more informative if the counties were labeled.  
+
+```{r viz1-refining}
+
+join1 %>%
+ggplot() + 
+    geom_polygon(aes(long, lat, group = group, fill = avg_self_reg_county)) + 
+    coord_fixed(1.3) +
+    scale_fill_viridis_c(name = "Score (1-5 scale)", 
+                         option = "inferno") +
+    labs(title = "Average Self Regulation Scores by County in Oregon",
+         x = NULL,
+         y = NULL) +
+     theme(axis.text.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks = element_blank(),
+        rect = element_blank()) +
+  geom_text(data = or_county, aes(long, lat, label = county), size = 2)
+
+
+```
+
+
 
 Now let's look at the the same plot a different way (see Figures code from slides) 
 
 ```{r layout = "l-body-outset"}
-
 
 ggplot(mpg, aes(displ, cty)) +
   geom_point() +

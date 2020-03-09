@@ -7,15 +7,24 @@
     <description>Data Visualization Winter 2020
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 26 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 09 Mar 2020 00:00:00 +0000</lastBuildDate>
     <item>
-      <title>Another new awesome post</title>
+      <title>Visualization 2</title>
+      <dc:creator>Joanna Wright</dc:creator>
+      <link>https://github.com/jhwrigh23/class_website/posts/2020-03-09-visualization-2</link>
+      <description>A short description of the post.</description>
+      <guid>https://github.com/jhwrigh23/class_website/posts/2020-03-09-visualization-2</guid>
+      <pubDate>Mon, 09 Mar 2020 00:00:00 +0000</pubDate>
+      <media:content url="https://github.com/jhwrigh23/class_website/posts/2020-03-09-visualization-2/visualization-2_files/figure-html5/viz2-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
+    <item>
+      <title>Visualization 1</title>
       <dc:creator>Joanna Wright</dc:creator>
       <link>https://github.com/jhwrigh23/class_website/posts/2020-02-26-another-new-awesome-post</link>
-      <description>A short description of the post.</description>
+      <description>Mapping self-regulation scores by county</description>
       <guid>https://github.com/jhwrigh23/class_website/posts/2020-02-26-another-new-awesome-post</guid>
       <pubDate>Wed, 26 Feb 2020 00:00:00 +0000</pubDate>
-      <media:content url="https://github.com/jhwrigh23/class_website/posts/2020-02-26-another-new-awesome-post/another-new-awesome-post_files/figure-html5/unnamed-chunk-2-1.png" medium="image" type="image/png" width="1248" height="1344"/>
+      <media:content url="https://github.com/jhwrigh23/class_website/posts/2020-02-26-another-new-awesome-post/another-new-awesome-post_files/figure-html5/viz1-1.png" medium="image" type="image/png" width="1248" height="1344"/>
     </item>
     <item>
       <title>Welcome to Data Visualization Winter 2020</title>

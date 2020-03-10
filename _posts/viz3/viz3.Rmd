@@ -1,7 +1,7 @@
 ---
 title: "Visualization 3"
 description: |
-  A short description of the post.
+  Change in self-regulation scores from 2013 to 2018
 author:
   - name: Joanna Wright
     url: https://github.com/jhwrigh23

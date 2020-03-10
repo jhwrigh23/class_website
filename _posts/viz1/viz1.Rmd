@@ -18,7 +18,6 @@ knitr::opts_chunk$set(echo = TRUE,
 
 Here's the libraries I'm using for this post. 
 ```{r libraries}
-# remotes::install_github("rstudio/gt")
 
 library(tidyverse)
 library(rio)
@@ -29,18 +28,12 @@ library(mapdata)
 library(ggtext)
 ```
 
-Here's how to create a plot and display it in different ways 
-
 ```{r loading the data}
 
 d <- import(here("data", "ka_2018-19_lookback_report.xlsx")) %>%
   clean_names()
 
-counties <- map_data("county")
-or_county <- subset(counties, region == "oregon")
-
 ```
-
 
 ```{r cleaning the data}
 
@@ -59,8 +52,6 @@ d_tidy <- d %>%
 d_tidy <- d_tidy %>%
   filter(avg_self_reg != "*")
 
-# need to double check online what the * means and make sure it's ok to remove. it removed a lot of rows!! 
-
 d_tidy = d_tidy[-1,]
 
 str(d_tidy)
@@ -68,9 +59,13 @@ d_tidy$avg_self_reg = as.numeric(d_tidy$avg_self_reg)
 
 ```
 
-The purpose of Plot 1 is to explore differences in average self-regulation scores across counties and represent this geographically. To do so, I needed to join the OKA dataset with a Oregon county mapping data. 
+The purpose of Plot 1 is to explore differences in average self-regulation scores across counties and represent this geographically. To do so, I needed to load Oregon county map data and then join the OKA dataset with the mapping data.
+
 
 ```{r viz1}
+
+counties <- map_data("county")
+or_county <- subset(counties, region == "oregon")
 
 # identifying keys, joining: 
 

@@ -56,8 +56,6 @@ d_tidy <- d %>%
 d_tidy <- d_tidy %>%
   filter(avg_self_reg != "*")
 
-# need to double check online what the * means and make sure it's ok to remove. it removed a lot of rows!! 
-
 d_tidy = d_tidy[-1,]
 
 ```

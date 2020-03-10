@@ -1,0 +1,62 @@
+---
+title: "Set up"
+description: |
+  Here is the code for loading and initial cleaning of the data. 
+author:
+  - name: Joanna Wright
+    url: https://github.com/jhwrigh23
+date: 03-10-2020
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+```{r libraries}
+
+library(tidyverse)
+library(rio)
+library(here)
+library(janitor)
+
+```
+
+I loaded the Oregon Kindergarten Assessment data by downloading the Excel file from https://www.oregon.gov/ode/educator-resources/assessment/Pages/Kindergarten-Assessment.aspx and then loading it: 
+
+```{r loading the data}
+
+d <- import(here("data", "ka_2018-19_lookback_report.xlsx")) %>%
+  clean_names()
+
+```
+
+I did an initial cleaning of the data, to create a data object I could use and further refine for each visualization. I selected my variables of interest and chose to focus specifically on self-regulation. I also filtered out missing data, which brought the number of observations down from 14,443 to 6,160 (many observations did not have self-regulation scores). 
+
+```{r cleaning the data}
+
+d_tidy <- d %>%
+  rename(county = oregon_kindergarten_assessment,
+         district_id = x2,
+         district = x3,
+         inst_id = x4,
+         inst_name = x5,
+         inst_type = x6,
+         stu_grp_type = x7,
+         stu_grp = x8,
+         avg_self_reg = x9) %>%
+  select(c(1:9))
+
+d_tidy <- d_tidy %>%
+  filter(avg_self_reg != "*")
+
+d_tidy = d_tidy[-1,]
+
+str(d_tidy)
+d_tidy$avg_self_reg = as.numeric(d_tidy$avg_self_reg)
+
+```
+

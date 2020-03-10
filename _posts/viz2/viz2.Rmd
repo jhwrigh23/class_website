@@ -22,9 +22,8 @@ library(tidyverse)
 library(rio)
 library(here)
 library(janitor)
-library(maps)
-library(mapdata)
-library(ggtext)
+library(gt)
+library(ggrepel)
 
 ```
 
@@ -55,8 +54,6 @@ d_tidy <- d %>%
 
 d_tidy <- d_tidy %>%
   filter(avg_self_reg != "*")
-
-# need to double check online what the * means and make sure it's ok to remove. it removed a lot of rows!! 
 
 d_tidy = d_tidy[-1,]
 
@@ -94,7 +91,8 @@ Rather than just having an overall average score by race, it may be more informa
 
 ```{r viz2-alternative}
 
-ggplot(d2, aes(avg_self_reg, stu_grp)) +
+d2 %>%
+ggplot(aes(avg_self_reg, fct_reorder(stu_grp, avg_self_reg))) +
   ggridges::geom_density_ridges(color = "white", 
                                 fill = "cornflowerblue", 
                                 alpha = 0.8) + 
@@ -108,3 +106,75 @@ ggplot(d2, aes(avg_self_reg, stu_grp)) +
        y = NULL)
   
 ```
+
+Or, another way to visualize the distributions: 
+
+```{r viz2-alternative}
+
+d2 %>%
+  ggplot(aes(avg_self_reg, fct_reorder(stu_grp, avg_self_reg))) +
+  geom_violin(fill = "cornflowerblue")
+
+```
+
+To put these numbers in context, it is important to know that some student groups are represented much more strongly than others. 
+
+```{r}
+
+d2 %>%
+  group_by(stu_grp) %>%
+  count()
+
+d2 %>%
+  group_by(county) %>%
+  count(stu_grp)
+             
+```
+
+Let's look at difference in self-regulation scores between the largest student groups represented. 
+
+```{r}
+
+d2 %>%
+  filter(stu_grp == "White" |
+           stu_grp == "Hispanic/Latino") %>%
+  group_by(stu_grp, county) %>%
+  summarise(avg_self_reg_race = mean(avg_self_reg)) %>%
+  pivot_wider(
+    names_from = stu_grp,
+    values_from = avg_self_reg_race
+  ) %>%
+  mutate(white_hisp_diff = c(White - `Hispanic/Latino`)) %>%
+  ggplot(aes(county, white_hisp_diff)) +
+  geom_point() +
+  coord_flip()
+
+```
+
+```{r}
+
+d2 %>%
+  filter(stu_grp == "White" |
+           stu_grp == "Hispanic/Latino") %>%
+  group_by(stu_grp, county) %>%
+  summarise(avg_self_reg_race = mean(avg_self_reg)) %>%
+  pivot_wider(
+    names_from = stu_grp,
+    values_from = avg_self_reg_race
+  ) %>%
+  mutate(white_hisp_diff = c(White - `Hispanic/Latino`)) %>%
+  filter(white_hisp_diff != "NA") %>%
+  ggplot(aes(fct_reorder(county, white_hisp_diff), white_hisp_diff)) +
+  geom_point(col = "darkred") +
+  coord_flip() + 
+  gghighlight::gghighlight(white_hisp_diff < -.25 |
+                             white_hisp_diff > .25,
+                           unhighlighted_colour = alpha("steelblue", 0.4)) + 
+  geom_point(col = "darkred", size = 2.5) + 
+  labs(title = "Differences Self-Regulation Scores by Race in Oregon",
+       subtitle = "Disparities in scores between White and Hispanic/Latino students",
+       x = NULL,
+       y = "Difference in scores")
+  
+```
+

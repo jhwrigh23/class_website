@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE,
                       fig.height = 7)
 ```
 
-Here's the libraries I'm using for this post. 
+Libraries for Visualization 1: 
 ```{r libraries}
 
 library(tidyverse)
@@ -28,14 +28,14 @@ library(mapdata)
 library(ggtext)
 ```
 
-```{r loading the data}
+```{r loading the data, echo=FALSE, results='hide'}
 
 d <- import(here("data", "ka_2018-19_lookback_report.xlsx")) %>%
   clean_names()
 
 ```
 
-```{r cleaning the data}
+```{r cleaning the data, echo=FALSE, results='hide'}
 
 d_tidy <- d %>%
   rename(county = oregon_kindergarten_assessment,
@@ -59,10 +59,11 @@ d_tidy$avg_self_reg = as.numeric(d_tidy$avg_self_reg)
 
 ```
 
-The purpose of Plot 1 is to explore differences in average self-regulation scores across counties and represent this geographically. To do so, I needed to load Oregon county map data and then join the OKA dataset with the mapping data.
+The purpose of Plot 1 is to explore differences in average self-regulation scores across counties and represent this geographically. 
 
+To do so, I first needed to load Oregon county map data and then join the OKA dataset with the mapping data.
 
-```{r viz1}
+```{r viz1-joining, results='hide'}
 
 counties <- map_data("county")
 or_county <- subset(counties, region == "oregon")
@@ -88,10 +89,13 @@ d1 <- d1 %>%
   mutate(county = str_to_lower(county))
 
 join1 <- left_join(d1, or_county)
+```
 
-# plotting:
+Then I tried creating the map:
 
-plot_1_a <- join1 %>%
+```{r viz1}
+
+join1 %>%
 ggplot() + 
     geom_polygon(aes(long, lat, group = group, fill = avg_self_reg_county)) + 
     coord_fixed(1.3) +
@@ -106,10 +110,9 @@ ggplot() +
         axis.ticks = element_blank(),
         rect = element_blank())
 
-plot_1_a
 ```
 
-This plot would be more informative if the counties were labeled.  
+This map would be more informative if the counties were labeled.  
 
 ```{r viz1-refining}
 
@@ -131,29 +134,6 @@ ggplot() +
 
 ```
 
+Beautiful, right?!?!
 
-
-Now let's look at the the same plot a different way (see Figures code from slides) 
-
-```{r layout = "l-body-outset"}
-
-ggplot(mpg, aes(displ, cty)) +
-  geom_point() +
-  geom_smooth()
-
-```
-
-```{r showing a table}
-
-mpg %>%
-  gt::gt()
-
-```
-
-```{r a fancier table}
-
-mpg %>%
-  reactable::reactable()
-
-```
 

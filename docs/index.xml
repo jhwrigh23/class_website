@@ -42,14 +42,5 @@
       <pubDate>Wed, 26 Feb 2020 00:00:00 +0000</pubDate>
       <media:content url="https://github.com/jhwrigh23/class_website/posts/viz1/viz1_files/figure-html5/viz1-1.png" medium="image" type="image/png" width="1248" height="1344"/>
     </item>
-    <item>
-      <title>Welcome to Data Visualization Winter 2020</title>
-      <dc:creator>Joanna Wright</dc:creator>
-      <link>https://github.com/jhwrigh23/class_website/posts/welcome</link>
-      <description>Welcome to our new blog, Data Visualization Winter 2020. We hope you enjoy 
-reading what we have to say!</description>
-      <guid>https://github.com/jhwrigh23/class_website/posts/welcome</guid>
-      <pubDate>Mon, 24 Feb 2020 00:00:00 +0000</pubDate>
-    </item>
   </channel>
 </rss>

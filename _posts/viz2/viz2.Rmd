@@ -33,9 +33,6 @@ library(ggrepel)
 d <- import(here("data", "ka_2018-19_lookback_report.xlsx")) %>%
   clean_names()
 
-counties <- map_data("county")
-or_county <- subset(counties, region == "oregon")
-
 ```
 
 ```{r cleaning-the-data}

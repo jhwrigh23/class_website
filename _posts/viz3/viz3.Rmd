@@ -15,7 +15,7 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-```{r}
+```{r libraries}
 
 library(tidyverse)
 library(rio)
@@ -28,18 +28,15 @@ library(ggtext)
 ```
 
 
-```{r loading-the-data}
+```{r loading-the-data, echo=FALSE, results='hide'}
 
 d <- import(here("data", "ka_2018-19_lookback_report.xlsx")) %>%
   clean_names()
 
-counties <- map_data("county")
-or_county <- subset(counties, region == "oregon")
-
 ```
 
 
-```{r cleaning-the-data}
+```{r cleaning-the-data, echo=FALSE, results='hide'}
 
 d_tidy <- d %>%
   rename(county = oregon_kindergarten_assessment,
@@ -59,3 +56,89 @@ d_tidy <- d_tidy %>%
 d_tidy = d_tidy[-1,]
 
 ```
+
+The purpose of Plot 3 is to see how self-regulation scores have changed over the course of the OKA. I chose to compare the recent data (2018-2019) with data from the first wave of the OKA (2014-2015). 
+
+To do so, I first needed to load the 2014-2015 data. I cleaned it in the same way I cleaned my initial (2018-2019) data. 
+```{r loading-2014-2015-data, results='hide'}
+dfirstwave <- import(here("data", "ka_2013-14_lookback_report.xlsx")) %>%
+  clean_names()
+
+dfirstwave1 <- dfirstwave %>%
+  rename(county = oregon_kindergarten_assessment,
+         district_id = x2,
+         district = x3,
+         inst_id = x4,
+         inst_name = x5,
+         inst_type = x6,
+         stu_grp_type = x7,
+         stu_grp = x8,
+         avg_self_reg = x9) %>%
+  select(c(1:9))
+```
+
+Then, I joined the two waves. 
+```{r joining}
+
+dfirstwave1 <- dfirstwave1 %>%
+  filter(avg_self_reg != "*")
+
+dfirstwave1 = dfirstwave1[-1,]
+
+dfirstwave1$avg_self_reg = as.numeric(dfirstwave1$avg_self_reg)
+
+dfirstwave2 <- dfirstwave1 %>%
+  group_by(county) %>%
+  summarise(avg_self_reg_county_firstwave = mean(avg_self_reg))
+
+dfirstwave2 <- dfirstwave2 %>%
+  mutate(county = str_to_lower(county))
+
+d_tidy <- d_tidy %>%
+  mutate(county = str_to_lower(county))
+
+join2 <- left_join(d_tidy, dfirstwave2)
+
+join2 <- join2 %>%
+  rename(`2014` = avg_self_reg_county_firstwave,
+         `2018` = avg_self_reg)
+
+join2$`2014` = as.numeric(join2$`2014`)
+join2$`2018` = as.numeric(join2$`2018`)
+
+join2 <- join2 %>%
+  select(1, 9, 10)
+
+```
+
+Once the data were joined, I created new columns for each year so that  I could compare across years. 
+```{r pivoting}
+
+join2 <- join2 %>%
+  pivot_longer(
+    cols = 2:3,
+    names_to = "Year", 
+    values_to = "Score",
+  )
+
+```
+
+```{r viz3}
+
+join2 %>%
+  group_by(county, Year) %>%
+  summarise(avg_score = mean(Score)) %>%
+  ggplot(aes(fct_reorder(county, avg_score), avg_score)) +
+  geom_line(aes(group = county), color = "gray40") +
+  geom_point(aes(color = Year)) +
+  coord_flip() +
+  theme(
+    plot.title.position = "plot",
+    plot.subtitle = element_markdown()) +
+  labs(title = "Self Regulation Score Changes from 2013 to 2018",
+       subtitle = "<span style = 'color:#FF6C67;'>2013</span> comparied to <span style = 'color:#00C2C6;'>2018 </span>change.",
+       x = NULL,
+       y = "Score (on 1-5 scale)") + 
+  guides(color = "none")
+```
+

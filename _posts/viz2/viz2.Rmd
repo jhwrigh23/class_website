@@ -62,7 +62,9 @@ d_tidy$avg_self_reg = as.numeric(d_tidy$avg_self_reg)
 
 ```
 
-The purpose of Plot 2 is to explore the degree to which self-regulation scores vary by race in Oregon. Because the student group variable included both racial and gender categories, I filtered to keep only race categories, and in plotting reordered them to show highest to lowest average self-regulation scores.  
+The purpose of Plot 2 is to explore variation in self-regulation scores by race in Oregon. 
+
+Because the student group variable included both racial and gender categories, the first step was to filter for only race categories. 
 
 ```{r viz2}
 
@@ -74,6 +76,12 @@ d2 <- d_tidy %>%
            stu_grp == "Hispanic/Latino" |
            stu_grp == "Black/African American" |
            stu_grp == "American Indian/Alaska Native")
+
+```
+
+First, I plotted overall average scores by race. 
+
+```{r}
 
 d2 %>%
   group_by(stu_grp) %>%
@@ -87,7 +95,7 @@ d2 %>%
 
 ```
 
-Rather than just having an overall average score by race, it may be more informative to see distributions for each race, as the average can obscure information such as the range.  
+To gain more of a sense of the data, I also plotted distributions in a couple of difference ways.  
 
 ```{r viz2-alternative}
 
@@ -104,17 +112,12 @@ ggplot(aes(avg_self_reg, fct_reorder(stu_grp, avg_self_reg))) +
   labs(title = "Self-Regulation Scores by Race",
        x = NULL,
        y = NULL)
-  
-```
 
-Or, another way to visualize the distributions: 
-
-```{r viz2-alternative}
 
 d2 %>%
   ggplot(aes(avg_self_reg, fct_reorder(stu_grp, avg_self_reg))) +
   geom_violin(fill = "cornflowerblue")
-
+  
 ```
 
 To put these numbers in context, it is important to know that some student groups are represented much more strongly than others. 
@@ -124,14 +127,10 @@ To put these numbers in context, it is important to know that some student group
 d2 %>%
   group_by(stu_grp) %>%
   count()
-
-d2 %>%
-  group_by(county) %>%
-  count(stu_grp)
              
 ```
 
-Let's look at difference in self-regulation scores between the largest student groups represented. 
+I decided to look at difference in self-regulation scores between the largest student groups represented (White, Hispanic/Latino).  
 
 ```{r}
 
@@ -150,6 +149,8 @@ d2 %>%
   coord_flip()
 
 ```
+
+Refining the plot to highlight counties in which there is the largest score difference between White and Hispanic/Latino students.  
 
 ```{r}
 
@@ -178,3 +179,4 @@ d2 %>%
   
 ```
 
+I'm not sure that this is the best way to represent differences in White vs Hispanic scores by county. If I stick with this plot, I need to tweak it to communicate that the  dots above 0.0 are counties in which Hispanic students score lower than White students, and the dots below 0.0 are counties in which White students score lower than Hispanic students.   

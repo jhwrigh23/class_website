@@ -49,7 +49,7 @@
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["visualization-2_files/bowser-1.9.3/bowser.min.js","visualization-2_files/distill-2.2.21/template.v2.js","visualization-2_files/figure-html5/viz2-1.png","visualization-2_files/figure-html5/viz2-alternative-1.png","visualization-2_files/jquery-1.11.3/jquery.min.js","visualization-2_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["viz2/bowser-1.9.3/bowser.min.js","viz2/distill-2.2.21/template.v2.js","viz2/figure-html5/viz2-1.png","viz2/figure-html5/viz2-alternative-1.png","viz2/jquery-1.11.3/jquery.min.js","viz2/webcomponents-2.0.0/webcomponents.js","viz2_files/figure-html5/unnamed-chunk-2-1.png","viz2_files/figure-html5/unnamed-chunk-4-1.png","viz2_files/figure-html5/unnamed-chunk-5-1.png","viz2_files/figure-html5/viz2-alternative-1.png","viz2_files/figure-html5/viz2-alternative-2.png"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -927,10 +927,10 @@
   </script>
   
   <!--/radix_placeholder_distill-->
-  <script src="visualization-2_files/jquery-1.11.3/jquery.min.js"></script>
-  <script src="visualization-2_files/bowser-1.9.3/bowser.min.js"></script>
-  <script src="visualization-2_files/webcomponents-2.0.0/webcomponents.js"></script>
-  <script src="visualization-2_files/distill-2.2.21/template.v2.js"></script>
+  <script src="viz2_files/jquery-1.11.3/jquery.min.js"></script>
+  <script src="viz2_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="viz2_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="viz2_files/distill-2.2.21/template.v2.js"></script>
   <!--radix_placeholder_site_in_header-->
   <!--/radix_placeholder_site_in_header-->
 
@@ -982,14 +982,43 @@
  $ stu_grp     : chr  &quot;Total Population&quot; &quot;Asian&quot; &quot;Black/African American&quot; &quot;Hispanic/Latino&quot; ...
  $ avg_self_reg: chr  &quot;3.5&quot; &quot;3.7&quot; &quot;3.3&quot; &quot;3.4&quot; ...</code></pre>
 </div>
-<p>The purpose of Plot 2 is to explore the degree to which self-regulation scores vary by race in Oregon. Because the student group variable included both racial and gender categories, I filtered to keep only race categories, and in plotting reordered them to show highest to lowest average self-regulation scores.</p>
+<p>The purpose of Plot 2 is to explore variation in self-regulation scores by race in Oregon.</p>
+<p>Because the student group variable included both racial and gender categories, the first step was to filter for only race categories.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="visualization-2_files/figure-html5/viz2-1.png" width="624" /></p>
+
 </div>
-<p>Rather than just having an overall average score by race, it may be more informative to see distributions for each race, as the average can obscure information such as the range.</p>
+<p>First, I plotted overall average scores by race.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="visualization-2_files/figure-html5/viz2-alternative-1.png" width="624" /></p>
+<p><img src="viz2_files/figure-html5/unnamed-chunk-2-1.png" width="624" /></p>
 </div>
+<p>To gain more of a sense of the data, I also plotted distributions in a couple of difference ways.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="viz2_files/figure-html5/viz2-alternative-1.png" width="624" /><img src="viz2_files/figure-html5/viz2-alternative-2.png" width="624" /></p>
+</div>
+<p>To put these numbers in context, it is important to know that some student groups are represented much more strongly than others.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code>
+# A tibble: 7 x 2
+# Groups:   stu_grp [7]
+  stu_grp                              n
+  &lt;chr&gt;                            &lt;int&gt;
+1 American Indian/Alaska Native       26
+2 Asian                               93
+3 Black/African American              61
+4 Hispanic/Latino                    542
+5 Multi-Racial                       258
+6 Native Hawaiian/Pacific Islander    22
+7 White                              867</code></pre>
+</div>
+<p>I decided to look at difference in self-regulation scores between the largest student groups represented (White, Hispanic/Latino).</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="viz2_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
+</div>
+<p>Refining the plot to highlight counties in which there is the largest score difference between White and Hispanic/Latino students.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="viz2_files/figure-html5/unnamed-chunk-5-1.png" width="624" /></p>
+</div>
+<p>I’m not sure that this is the best way to represent differences in White vs Hispanic scores by county. If I stick with this plot, I need to tweak it to communicate that the dots above 0.0 are counties in which Hispanic students score lower than White students, and the dots below 0.0 are counties in which White students score lower than Hispanic students.</p>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

@@ -1,6 +1,6 @@
 [
   {
-    "path": "posts/2020-03-09-visualization-2/",
+    "path": "posts/viz2/",
     "title": "Visualization 2",
     "description": "A short description of the post.",
     "author": [
@@ -11,13 +11,13 @@
     ],
     "date": "2020-03-09",
     "categories": [],
-    "preview": "posts/2020-03-09-visualization-2/visualization-2_files/figure-html5/viz2-1.png",
-    "last_modified": "2020-03-09T11:39:39-07:00",
+    "preview": "posts/viz2/viz2_files/figure-html5/unnamed-chunk-2-1.png",
+    "last_modified": "2020-03-10T08:55:16-07:00",
     "preview_width": 1248,
     "preview_height": 768
   },
   {
-    "path": "posts/2020-02-26-another-new-awesome-post/",
+    "path": "posts/viz1/",
     "title": "Visualization 1",
     "description": "Mapping self-regulation scores by county",
     "author": [
@@ -28,10 +28,8 @@
     ],
     "date": "2020-02-26",
     "categories": [],
-    "preview": "posts/2020-02-26-another-new-awesome-post/another-new-awesome-post_files/figure-html5/viz1-1.png",
-    "last_modified": "2020-03-09T11:35:03-07:00",
-    "preview_width": 1248,
-    "preview_height": 1344
+    "preview": {},
+    "last_modified": "2020-03-09T11:35:03-07:00"
   },
   {
     "path": "posts/welcome/",

@@ -37,7 +37,7 @@ The OKA aims to provide *"a snapshot for communities and schools on the skills t
 
 ---
 
-# Visualization 1 
+# Visualization 1: mapping self-regulation by county 
 
 ```{r include=FALSE, echo=FALSE, results='hide'}
 
@@ -120,7 +120,7 @@ ggplot() +
 
 ---
 
-# Visualization 2
+# Visualization 2: self-regulation scores by race
 
 ```{r include=FALSE, echo=FALSE, results='hide'}
 
@@ -135,6 +135,24 @@ d2 <- d_tidy %>%
 
 
 ```
+
+```{r echo=FALSE, warning=FALSE}
+
+d2 %>%
+  ggplot(aes(avg_self_reg, fct_reorder(stu_grp, avg_self_reg), fill = stu_grp)) +
+  geom_violin() +
+  labs(title = "Distribution of self-regulation scores by race",
+       x = "Score (1-5 scale)",
+       y = NULL) +
+  theme_minimal() + 
+  scale_color_brewer(palette = "Accent") +
+  theme(plot.title = element_text(hjust = 1)) +
+  theme(legend.position = "none") 
+
+```
+
+---
+# Still Visualization 2: a closer look at differences by race
 
 ```{r echo=FALSE, warning=FALSE}
 
@@ -164,7 +182,7 @@ d2 %>%
 ```
 
 ---
-# Visualization 3
+# Visualization 3: self-regulation scores over time (2014-2018)
 ```{r echo=FALSE, include=FALSE}
 
 dfirstwave <- import(here("data", "ka_2013-14_lookback_report.xlsx")) %>%
@@ -318,7 +336,7 @@ join2 %>%
     names_from = "Year",
     values_from = "avg_score"
   ) %>%
-  mutate(change_14_to_18 = c(`2014` - `2018`)) %>%
+  mutate(change_14_to_18 = c(`2018` - `2014`)) %>%
   pivot_longer(
     cols = 2:3,
     names_to = "Year",

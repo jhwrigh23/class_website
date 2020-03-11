@@ -123,6 +123,34 @@ join2 <- join2 %>%
 
 ```
 
+
+```{r}
+
+join2 %>%
+  group_by(county, Year) %>%
+  summarise(avg_score = mean(Score)) %>%
+  pivot_wider(
+    names_from = "Year",
+    values_from = "avg_score"
+  ) %>%
+  mutate(change_14_to_18 = c(`2014` - `2018`)) %>%
+  pivot_longer(
+    cols = 2:3,
+    names_to = "Year",
+    values_to = "Score"
+    ) %>%
+  ggplot(aes(fct_reorder(county, change_14_to_18), Score)) +
+  geom_point(aes(color = Year), size = 1.5) +
+  geom_line(aes(group = county), color = "gray40") +
+  coord_flip() +
+  theme_minimal() +
+  labs(title = "Self Regulation Score Changes from 2013 to 2018",
+       x = NULL,
+       y = "Score (on 1-5 scale)")
+
+```
+
+
 ```{r viz3}
 
 join2 %>%
@@ -130,15 +158,16 @@ join2 %>%
   summarise(avg_score = mean(Score)) %>%
   ggplot(aes(fct_reorder(county, avg_score), avg_score)) +
   geom_line(aes(group = county), color = "gray40") +
-  geom_point(aes(color = Year)) +
+  geom_point(aes(color = Year), size = 1.5) +
   coord_flip() +
   theme(
     plot.title.position = "plot",
     plot.subtitle = element_markdown()) +
   labs(title = "Self Regulation Score Changes from 2013 to 2018",
-       subtitle = "<span style = 'color:#FF6C67;'>2013</span> comparied to <span style = 'color:#00C2C6;'>2018 </span>change.",
+       subtitle = "<span style = 'color:#FF6C67;'>2014</span> comparied to <span style = 'color:#00C2C6;'>2018 </span>change.",
        x = NULL,
        y = "Score (on 1-5 scale)") + 
   guides(color = "none")
 ```
+
 

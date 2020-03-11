@@ -56,16 +56,6 @@ The OKA aims to provide *"a snapshot for communities and schools on the skills t
 ![](slides_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
 
 ---
-
-# Visualization 3
-
-
-
-
-![](slides_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
-
----
-
 # Visualization 3
 
 **OKA aims to:** 
@@ -83,30 +73,26 @@ To address all of the OKA aims by demonstrating change in self-regulation scores
 Oregon Department of Education, policymakers
 
 ---
+### Viz 3: initial try  
+![](slides_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
 
-# Example of a prior version: 
+---
+### Viz 3: order according to average score, remove legend
 
 ![](slides_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
 
 ---
+### Viz 3: order according to *change* in score rather than *average* score
+![](slides_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
 
-# Still soooooo many things to improve: 
-
-1. Change the color of the lines to represent whether there was an increase or a decrease over time (thus highlighting counties that may need support in this domain)
-
-2. fct_reorder by which counties showed the greatest improvements over time to the greatest decreases over time
-
-3. Put "All counties" at the top and highlight as a reference point to show change state-wide? 
-
-4. Refining: capitalizing county names, adjusting size and color 
-
-*And the biggest problem:* 
-I think 2014 and 2018 somehow got switched! Need to identify where this error occured.
 
 ---
+## Viz 3: adjusting color, geom sizes, theme
 
+![](slides_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+
+---
 # Challenges along the way
-
 ### Mapping data onto aesthetics: thinking in layers
 
 
@@ -114,28 +100,18 @@ I think 2014 and 2018 somehow got switched! Need to identify where this error oc
 ggplot(aes(x,y)) %&gt;%
   geom(aes(???))
 ```
-
+### Adjusting proportions 
 ### Problem-solving via googling:
 - Last term it never worked. 
 - Now it works sometimes! Which is so exciting!! 
 - But it's still hard to know how long to struggle with something...
-
-### Also: 
-- Taking the time to check: Why did this work? What did I figure out?
-
 ---
-
 # Other challenges: **very** ugly maps! 
-
-![](slides_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
 
 ---
-
-
 # Successes along the way: 
-
 ### Pivoting and regular expression
-
 
 ```r
 join2 &lt;- join2 %&gt;%
@@ -146,20 +122,12 @@ join2 &lt;- join2 %&gt;%
 *    names_pattern = ".+_.+_.+_(.+)"
   )
 ```
-
-
 ### Also, tidying -&gt; joining datasets
-
-
 ---
 
 class: center, middle
 
 # Thank you!
-
-Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
-
-The chakra comes from [remark.js](https://remarkjs.com), [**knitr**](http://yihui.org/knitr), and [R Markdown](https://rmarkdown.rstudio.com).
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

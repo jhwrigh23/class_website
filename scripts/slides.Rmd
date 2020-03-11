@@ -164,9 +164,7 @@ d2 %>%
 ```
 
 ---
-
 # Visualization 3
-
 ```{r echo=FALSE, include=FALSE}
 
 dfirstwave <- import(here("data", "ka_2013-14_lookback_report.xlsx")) %>%
@@ -221,32 +219,6 @@ join2 <- join2 %>%
   )
 
 ```
-
-
-```{r echo=FALSE, warning=FALSE}
-
-join2 %>%
-  group_by(county, Year) %>%
-  summarise(avg_score = mean(Score)) %>%
-  ggplot(aes(fct_reorder(county, avg_score), avg_score)) +
-  geom_line(aes(group = county), color = "gray40") +
-  geom_point(aes(color = Year)) +
-  coord_flip() +
-  theme(
-    plot.title.position = "plot",
-    plot.subtitle = element_markdown()) +
-  labs(title = "Self Regulation Score Changes from 2014 to 2018",
-       subtitle = "<span style = 'color:#00C2C6;'>2014</span> compared to <span style = 'color:#FF6C67;'>2018 </span>change.",
-       x = NULL,
-       y = "Score (on 1-5 scale)") + 
-  guides(color = "none")
-
-```
-
----
-
-# Visualization 3
-
 **OKA aims to:** 
 1. identify systemic opportunity gaps
 2. determine resource allocation to best support students in need 
@@ -262,9 +234,7 @@ To address all of the OKA aims by demonstrating change in self-regulation scores
 Oregon Department of Education, policymakers
 
 ---
-
-# Example of a prior version: 
-
+### Viz 3: initial try  
 ```{r echo=FALSE, warning=FALSE}
 
 join2 %>%
@@ -277,27 +247,99 @@ join2 %>%
   labs(title = "Self Regulation Score Changes from 2014 to 2018",
        x = NULL,
        y = "Score (on 1-5 scale)")
+
 ```
 
 ---
+### Viz 3: order according to average score, remove legend
 
-# Still soooooo many things to improve: 
+```{r echo=FALSE, warning=FALSE}
 
-1. Change the color of the lines to represent whether there was an increase or a decrease over time (thus highlighting counties that may need support in this domain)
+join2 %>%
+  group_by(county, Year) %>%
+  summarise(avg_score = mean(Score)) %>%
+  filter(county != "all counties") %>%
+  ungroup() %>%
+  ggplot(aes(fct_reorder(county, avg_score), avg_score)) +
+  geom_line(aes(group = county), color = "gray40") +
+  geom_point(aes(color = Year), size = 1.5) +
+  coord_flip() +
+  theme(
+    plot.title.position = "plot",
+    plot.subtitle = element_markdown()) +
+  labs(title = "Self Regulation Score Changes from 2014 to 2018",
+       subtitle = "<span style = 'color:#FF6C67;'>2014</span> compared to <span style = 'color:#00C2C6;'>2018 </span>change.",
+       x = NULL,
+       y = "Score (on 1-5 scale)") + 
+  guides(color = "none")
 
-2. fct_reorder by which counties showed the greatest improvements over time to the greatest decreases over time
-
-3. Put "All counties" at the top and highlight as a reference point to show change state-wide? 
-
-4. Refining: capitalizing county names, adjusting size and color 
-
-*And the biggest problem:* 
-I think 2014 and 2018 somehow got switched! Need to identify where this error occured.
+```
 
 ---
+### Viz 3: order according to *change* in score rather than *average* score
+```{r echo=FALSE, warning=FALSE}
 
+join2 %>%
+  group_by(county, Year) %>%
+  summarise(avg_score = mean(Score)) %>%
+  pivot_wider(
+    names_from = "Year",
+    values_from = "avg_score"
+  ) %>%
+  mutate(change_14_to_18 = c(`2018` - `2014`)) %>%
+  pivot_longer(
+    cols = 2:3,
+    names_to = "Year",
+    values_to = "Score"
+    ) %>%
+  ggplot(aes(fct_reorder(county, change_14_to_18), Score)) +
+  geom_point(aes(color = Year), size = 1.5) +
+  geom_line(aes(group = county), color = "gray40") +
+  coord_flip() +
+  labs(title = "Self Regulation Score Changes from 2014 to 2018",
+       x = NULL,
+       y = "Score (on 1-5 scale)")
+
+```
+
+
+---
+## Viz 3: adjusting color, geom sizes, theme
+
+```{r echo=FALSE, warning=FALSE}
+
+join2 <- join2 %>%
+  mutate(county = str_to_title(county))
+
+join2 %>%
+  group_by(county, Year) %>%
+  summarise(avg_score = mean(Score)) %>%
+  pivot_wider(
+    names_from = "Year",
+    values_from = "avg_score"
+  ) %>%
+  mutate(change_14_to_18 = c(`2014` - `2018`)) %>%
+  pivot_longer(
+    cols = 2:3,
+    names_to = "Year",
+    values_to = "Score"
+    ) %>%
+  filter(county != "all counties") %>%
+  ggplot(aes(fct_reorder(county, -change_14_to_18), Score)) +
+  geom_line(aes(group = county), color = "gray40", size = 1) +
+  geom_point(aes(color = Year), size = 2.2) +
+  coord_flip() +
+  theme_minimal() +
+  labs(title = "Self Regulation Score Changes from 2014 to 2018",
+       subtitle = "Ordered from greatest increase to greatest decrease",
+       x = NULL,
+       y = "Score (on 1-5 scale)") + 
+  scale_color_brewer(palette = "Set1")
+
+```
+
+---
 # Challenges along the way
-
 ### Mapping data onto aesthetics: thinking in layers
 
 ```{r eval=FALSE}
@@ -306,19 +348,13 @@ ggplot(aes(x,y)) %>%
   geom(aes(???))
 
 ```
-
+### Adjusting proportions 
 ### Problem-solving via googling:
 - Last term it never worked. 
 - Now it works sometimes! Which is so exciting!! 
 - But it's still hard to know how long to struggle with something...
-
-### Also: 
-- Taking the time to check: Why did this work? What did I figure out?
-
 ---
-
 # Other challenges: **very** ugly maps! 
-
 ```{r echo=FALSE, warning=FALSE}
 
 join1 %>%
@@ -339,12 +375,8 @@ ggplot() +
 ```
 
 ---
-
-
 # Successes along the way: 
-
 ### Pivoting and regular expression
-
 ```{r eval=FALSE}
 
 join2 <- join2 %>%
@@ -355,17 +387,9 @@ join2 <- join2 %>%
 *    names_pattern = ".+_.+_.+_(.+)"
   )
 ```
-
-
 ### Also, tidying -> joining datasets
-
-
 ---
 
 class: center, middle
 
 # Thank you!
-
-Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
-
-The chakra comes from [remark.js](https://remarkjs.com), [**knitr**](http://yihui.org/knitr), and [R Markdown](https://rmarkdown.rstudio.com).

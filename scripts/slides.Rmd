@@ -304,7 +304,7 @@ join2 %>%
 
 
 ---
-## Viz 3: adjusting color, geom sizes, theme
+### Viz 3: further refining (color, geom sizes, theme, subtitle)
 
 ```{r echo=FALSE, warning=FALSE}
 

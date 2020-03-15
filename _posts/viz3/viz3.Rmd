@@ -171,3 +171,35 @@ join2 %>%
 ```
 
 
+```{r}
+
+join2 <- join2 %>%
+  mutate(county = str_to_title(county))
+
+join2 %>%
+  group_by(county, Year) %>%
+  summarise(avg_score = mean(Score)) %>%
+  pivot_wider(
+    names_from = "Year",
+    values_from = "avg_score"
+  ) %>%
+  mutate(change_14_to_18 = c(`2018` - `2014`)) %>%
+  pivot_longer(
+    cols = 2:3,
+    names_to = "Year",
+    values_to = "Score"
+    ) %>%
+  filter(county != "all counties") %>%
+  ggplot(aes(fct_reorder(county, -change_14_to_18), Score)) +
+  geom_line(aes(group = county), color = "gray40", size = 1) +
+  geom_point(aes(color = Year), size = 2.2) +
+  coord_flip() +
+  theme_minimal() +
+  labs(title = "Self Regulation Score Changes from 2014 to 2018",
+       subtitle = "Ordered from greatest increase to greatest decrease",
+       x = NULL,
+       y = "Score (on 1-5 scale)") + 
+  scale_color_brewer(palette = "Set1")
+
+```
+

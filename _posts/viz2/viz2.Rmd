@@ -76,7 +76,7 @@ d2 <- d_tidy %>%
 
 ```
 
-First, I plotted overall average scores by race. 
+First, just to get an overall sense of the data, I plotted average scores by race. 
 
 ```{r}
 
@@ -92,7 +92,7 @@ d2 %>%
 
 ```
 
-To gain more of a sense of the data, I also plotted distributions in a couple of difference ways.  
+To explore the data further, I  plotted distributions in a couple of difference ways.  
 
 ```{r viz2-alternative}
 
@@ -176,4 +176,89 @@ d2 %>%
   
 ```
 
-I'm not sure that this is the best way to represent differences in White vs Hispanic scores by county. If I stick with this plot, I need to tweak it to communicate that the  dots above 0.0 are counties in which Hispanic students score lower than White students, and the dots below 0.0 are counties in which White students score lower than Hispanic students.   
+How can this be improved? 
+
+```{r}
+
+d2 %>%
+  filter(stu_grp == "White" |
+           stu_grp == "Hispanic/Latino") %>%
+  group_by(stu_grp, county) %>%
+  summarise(avg_self_reg_race = mean(avg_self_reg)) %>%
+  pivot_wider(
+    names_from = stu_grp,
+    values_from = avg_self_reg_race
+  ) %>%
+  mutate(white_hisp_diff = c(White - `Hispanic/Latino`)) %>%
+  filter(white_hisp_diff != "NA") %>%
+  ggplot(aes(fct_reorder(county, white_hisp_diff), white_hisp_diff, 
+         fill = white_hisp_diff > 0)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() + 
+  labs(title = "Differences Self-Regulation Scores by Race in Oregon",
+       subtitle = "Disparities in scores between White and Hispanic/Latino students",
+       x = NULL,
+       y = "Difference in scores")
+
+```
+
+That's easier to read, but it's still hard to tell what it means. I needed to find a way to communicate that the blue represents White student scores being higher than Hispanic, and the red represents Hispanic student scores being higher than White. 
+
+```{r}
+
+d2 %>%
+  filter(stu_grp == "White" |
+           stu_grp == "Hispanic/Latino") %>%
+  group_by(stu_grp, county) %>%
+  summarise(avg_self_reg_race = mean(avg_self_reg)) %>%
+  pivot_wider(
+    names_from = stu_grp,
+    values_from = avg_self_reg_race
+  ) %>%
+  mutate(white_hisp_diff = c(White - `Hispanic/Latino`)) %>%
+  filter(white_hisp_diff != "NA") %>%
+  ggplot(aes(fct_reorder(county, white_hisp_diff), white_hisp_diff, 
+         fill = white_hisp_diff > 0)) +
+  geom_bar(stat = 'identity') +
+  scale_fill_viridis_d(name = "Average White student scores higher than Hispanic/Latino") +
+  coord_flip() + 
+  labs(title = "Differences Self-Regulation Scores by Race in Oregon",
+       subtitle = "Disparities in scores between White and Hispanic/Latino students",
+       x = NULL,
+       y = "Difference in scores") +
+  theme_dark() + 
+  theme(legend.position = "bottom")
+
+
+```
+
+
+```{r fig.height=3, fig.width=4}
+
+d2 %>%
+  filter(stu_grp == "White" |
+           stu_grp == "Hispanic/Latino") %>%
+  group_by(stu_grp, county) %>%
+  summarise(avg_self_reg_race = mean(avg_self_reg)) %>%
+  pivot_wider(
+    names_from = stu_grp,
+    values_from = avg_self_reg_race
+  ) %>%
+  mutate(white_hisp_diff = c(White - `Hispanic/Latino`)) %>%
+  filter(white_hisp_diff != "NA") %>%
+  ggplot(aes(fct_reorder(county, white_hisp_diff), white_hisp_diff, 
+         fill = white_hisp_diff > 0)) +
+  geom_bar(stat = 'identity') +
+  scale_fill_viridis_d(name = "Average White student scores higher than Hispanic/Latino") +
+  coord_flip() + 
+  labs(title = "Differences Self-Regulation Scores by Race in Oregon",
+       subtitle = "Disparities in scores between White and Hispanic/Latino students",
+       x = NULL,
+       y = "Difference in scores") +
+  theme_dark() + 
+  theme(legend.position = "bottom")
+
+```
+
+This is getting pretty close! I'd still like to change the caption to reduce cognitive load - make it  super clear what data are depicted. 
+

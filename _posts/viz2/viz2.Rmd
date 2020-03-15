@@ -16,6 +16,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ```
 
+Here are the libraries I used for this post: 
 ```{r}
 
 library(tidyverse)
@@ -78,7 +79,7 @@ d2 <- d_tidy %>%
 
 First, just to get an overall sense of the data, I plotted average scores by race. 
 
-```{r}
+```{r viz2-vers1}
 
 d2 %>%
   group_by(stu_grp) %>%
@@ -94,7 +95,7 @@ d2 %>%
 
 To explore the data further, I  plotted distributions in a couple of difference ways.  
 
-```{r viz2-alternative}
+```{r viz2-vers2-3-4}
 
 d2 %>%
 ggplot(aes(avg_self_reg, fct_reorder(stu_grp, avg_self_reg))) +
@@ -139,7 +140,7 @@ d2 %>%
 
 I decided to look at difference in self-regulation scores between the largest student groups represented (White, Hispanic/Latino).  
 
-```{r}
+```{r viz2-vers5}
 
 d2 %>%
   filter(stu_grp == "White" |
@@ -159,7 +160,7 @@ d2 %>%
 
 Refining the plot to highlight counties in which there is the largest score difference between White and Hispanic/Latino students.  
 
-```{r}
+```{r viz2-vers6}
 
 d2 %>%
   filter(stu_grp == "White" |
@@ -188,7 +189,7 @@ d2 %>%
 
 How can this be improved? 
 
-```{r}
+```{r viz2-vers7}
 
 d2 %>%
   filter(stu_grp == "White" |
@@ -214,7 +215,7 @@ d2 %>%
 
 That's easier to read, but it's still hard to tell what it means. I needed to find a way to communicate that the blue represents White student scores being higher than Hispanic, and the red represents Hispanic student scores being higher than White. 
 
-```{r}
+```{r viz2-vers8}
 
 d2 %>%
   filter(stu_grp == "White" |
@@ -243,7 +244,7 @@ d2 %>%
 ```
 
 
-```{r fig.height=3, fig.width=4}
+```{r viz2-vers9}
 
 d2 %>%
   filter(stu_grp == "White" |

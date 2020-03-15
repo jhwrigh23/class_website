@@ -12,7 +12,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE,
+knitr::opts_chunk$set(echo = FALSE,
                       fig.height = 7)
 ```
 
@@ -31,14 +31,14 @@ library(sf)
 library(sp)
 ```
 
-```{r loading the data, echo=FALSE, results='hide'}
+```{r loading the data, results='hide'}
 
 d <- import(here("data", "ka_2018-19_lookback_report.xlsx")) %>%
   clean_names()
 
 ```
 
-```{r cleaning the data, echo=FALSE, results='hide'}
+```{r cleaning the data, results='hide'}
 
 d_tidy <- d %>%
   rename(county = oregon_kindergarten_assessment,
@@ -96,7 +96,7 @@ join1 <- left_join(d1, or_county)
 
 Then I tried creating the map:
 
-```{r viz1}
+```{r viz1-vers1}
 
 join1 %>%
 ggplot() + 
@@ -117,7 +117,7 @@ ggplot() +
 
 This map would be more informative if the counties were labeled.  
 
-```{r viz1-refining}
+```{r viz1-vers2}
 
 join1 %>%
 ggplot() + 
@@ -139,24 +139,7 @@ ggplot() +
 
 Beautiful, right?!?! I needed to create centroid data in order to label counties properly. 
 
-```{r}
-
-
-join1 %>%
-ggplot() + 
-    geom_polygon(aes(long, lat, group = group, fill = avg_self_reg_county)) + 
-    coord_fixed(1.3) +
-    scale_fill_viridis_c(name = "Score (1-5 scale)", 
-                         option = "inferno") +
-    labs(title = "Average Self Regulation Scores by County in Oregon",
-         x = NULL,
-         y = NULL) +
-     theme(axis.text.x = element_blank(),
-        axis.text.y = element_blank(),
-        axis.ticks = element_blank(),
-        rect = element_blank()) +
-  geom_text(data = or_county, aes(long, lat, label = county), size = 2)
-
+```{r viz1-vers3}
 
 
 getLabelPoint <- function(county) {Polygon(county[c('long', 'lat')])@labpt}
@@ -177,7 +160,7 @@ ggplot() +
                color = "gray") + 
   geom_polygon(aes(long, lat, group = group, fill = avg_self_reg_county)) +
   coord_fixed(1.3) + 
-  geom_text(aes(x = clong, y = clat, label = county), color = "darkblue", size = 1.75) + 
+  geom_text(aes(x = clong, y = clat, label = county), color = "darkblue", size = 3) + 
 scale_fill_viridis_c(name = "Score (1-5 scale)", 
                          option = "inferno") +
     labs(title = "Average Self Regulation Scores by County in Oregon",
@@ -192,7 +175,7 @@ scale_fill_viridis_c(name = "Score (1-5 scale)",
 
 While this accomplished what I wanted it to functionally, it doesn't look very nice. The blue labels are difficult to read against this these scale colors. So I tried it a few different ways. 
 
-```{r}
+```{r viz1-vers4}
 
 join3 %>%
 ggplot() + 
@@ -217,7 +200,7 @@ scale_colour_brewer() +
 ```
 
 Some final refining: 
-```{r}
+```{r viz1-vers5}
 
 join3 <- join3 %>%
   mutate(county = str_to_title(county))

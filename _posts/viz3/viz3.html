@@ -49,7 +49,7 @@
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["viz3_files/bowser-1.9.3/bowser.min.js","viz3_files/distill-2.2.21/template.v2.js","viz3_files/figure-html5/unnamed-chunk-1-1.png","viz3_files/figure-html5/unnamed-chunk-2-1.png","viz3_files/figure-html5/viz3-1.png","viz3_files/jquery-1.11.3/jquery.min.js","viz3_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["viz3_files/bowser-1.9.3/bowser.min.js","viz3_files/distill-2.2.21/template.v2.js","viz3_files/figure-html5/unnamed-chunk-1-1.png","viz3_files/figure-html5/unnamed-chunk-2-1.png","viz3_files/figure-html5/viz3-1.png","viz3_files/figure-html5/viz3-vers1-1.png","viz3_files/figure-html5/viz3-vers2-1.png","viz3_files/figure-html5/viz3-vers4-1.png","viz3_files/jquery-1.11.3/jquery.min.js","viz3_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -964,7 +964,14 @@
 
 <div class="d-article">
 <div class="layout-chunk" data-layout="l-body">
-
+<pre class="r"><code>
+library(tidyverse)
+library(rio)
+library(here)
+library(janitor)
+library(maps)
+library(mapdata)
+library(ggtext)</code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 
@@ -973,26 +980,27 @@
 
 </div>
 <p>The purpose of Plot 3 is to see how self-regulation scores have changed over the course of the OKA. I chose to compare the recent data (2018-2019) with data from the first wave of the OKA (2014-2015).</p>
-To do so, I first needed to load the 2014-2015 data. I cleaned it in the same way I cleaned my initial (2018-2019) data.
+<p>To do so, I first needed to load the 2014-2015 data. I cleaned it in the same way I cleaned my initial (2018-2019) data.</p>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
-Then, I joined the two waves.
+<p>Then I joined the two waves.</p>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
-Once the data were joined, I created new columns for each year so that I could compare across years.
+<p>Once the data were joined, I created new columns for each year so that I could compare across years.</p>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
+Ready to try plotting:
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="viz3_files/figure-html5/unnamed-chunk-1-1.png" width="624" /></p>
+<p><img src="viz3_files/figure-html5/viz3-vers1-1.png" width="624" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="viz3_files/figure-html5/viz3-1.png" width="624" /></p>
+<p><img src="viz3_files/figure-html5/viz3-vers2-1.png" width="624" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="viz3_files/figure-html5/unnamed-chunk-2-1.png" width="624" /></p>
+<p><img src="viz3_files/figure-html5/viz3-vers4-1.png" width="624" /></p>
 </div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

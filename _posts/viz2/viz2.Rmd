@@ -110,10 +110,20 @@ ggplot(aes(avg_self_reg, fct_reorder(stu_grp, avg_self_reg))) +
        x = NULL,
        y = NULL)
 
-
 d2 %>%
   ggplot(aes(avg_self_reg, fct_reorder(stu_grp, avg_self_reg))) +
   geom_violin(fill = "cornflowerblue")
+
+d2 %>%
+  ggplot(aes(avg_self_reg, fct_reorder(stu_grp, avg_self_reg), fill = stu_grp)) +
+  geom_violin() +
+  labs(title = "Distribution of self-regulation scores by race",
+       x = "Score (1-5 scale)",
+       y = NULL) +
+  theme_minimal() + 
+  scale_color_brewer(palette = "Accent") +
+  theme(plot.title = element_text(hjust = 1)) +
+  theme(legend.position = "none") 
   
 ```
 

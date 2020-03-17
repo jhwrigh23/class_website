@@ -227,9 +227,10 @@ scale_fill_distiller(name = "Score (1-5 scale)",
         rect = element_blank())
 ```
 
-Last, I made some final refinements for easy readability, including making the county labels larger, using `str_to_title` for county names, putting the legend on the bottom, and adjusting the aspect ratio. I also used `check_overlap = TRUE` to manage the issue of county labels overlapping. This isn't a full soluation, because it results in a couple of counties being unlabeled. But it was the best solution I could find for now, and it at least has most counties labeled and makes the map legible.
+Last, I made some final refinements for easy readability, including editing the title, adding a subtitle and caption, making the county labels larger, using `str_to_title` for county names, and putting the legend on the bottom. I used `layout="l-body=outset"` in the code chunk settings which increased the figure size nicely. I also used the `geom_text` argument `check_overlap = TRUE` to manage the issue of county labels overlapping. This isn't a full soluation, because it results in a couple of counties being unlabeled. But it was the best solution I could find for now, and it at least has most counties labeled and makes the map legible.
 
-```{r, preview=TRUE}
+```{r, preview=TRUE, layout="l-body-outset"}
+
 join3 <- join3 %>%
   mutate(county = str_to_title(county))
 
@@ -250,9 +251,11 @@ scale_fill_distiller(name = "Score (1-5 scale)",
                      palette = "Spectral", 
                      type = "div", 
                      direction = "horizontal") +
-    labs(title = "Average Self Regulation Scores by County in Oregon",
+    labs(title = "Incoming Kindergarteners' Self Regulation Scores in Oregon",
+         subtitle = "Average score by county in 2018-2019", 
          x = NULL,
-         y = NULL) + 
+         y = NULL,
+         caption = "Data from https://www.oregon.gov/ode/educator-resources/assessment/Pages/Kindergarten-Assessment.aspx") + 
      theme(axis.text.x = element_blank(),
         axis.text.y = element_blank(),
         axis.ticks = element_blank(),

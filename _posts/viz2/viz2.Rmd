@@ -13,11 +13,10 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-
 ```
 
 Here are the libraries I used for this post: 
-```{r}
+```{r echo=TRUE}
 
 library(tidyverse)
 library(rio)
@@ -36,7 +35,7 @@ d <- import(here("data", "ka_2018-19_lookback_report.xlsx")) %>%
 
 ```
 
-```{r cleaning-the-data}
+```{r cleaning-the-data, results='hide'}
 
 d_tidy <- d %>%
   rename(county = oregon_kindergarten_assessment,
@@ -60,11 +59,7 @@ d_tidy$avg_self_reg = as.numeric(d_tidy$avg_self_reg)
 
 ```
 
-The purpose of Plot 2 is to explore variation in self-regulation scores by race in Oregon. 
-
-Because the student group variable included both racial and gender categories, the first step was to filter for only race categories. 
-
-```{r viz2}
+```{r }
 
 d2 <- d_tidy %>%
   filter(stu_grp == "Asian" |
@@ -77,8 +72,9 @@ d2 <- d_tidy %>%
 
 ```
 
-First, just to get an overall sense of the data, I plotted average scores by race. 
+The purpose of Plot 2 is to explore variation in self-regulation scores by race in Oregon. 
 
+First, just to get an overall sense of the data, I plotted average scores by race. 
 ```{r viz2-vers1}
 
 d2 %>%
@@ -125,7 +121,14 @@ d2 %>%
   scale_color_brewer(palette = "Accent") +
   theme(plot.title = element_text(hjust = 1)) +
   theme(legend.position = "none") 
-  
+
+d2 %>%
+  ggplot(aes(avg_self_reg)) +
+  geom_density(aes(fill = stu_grp, bw = .5)) +
+  facet_wrap(~stu_grp) + 
+  theme_minimal() + 
+  scale_color_brewer() +
+  guides(color = "none")
 ```
 
 To put these numbers in context, it is important to know that some student groups are represented much more strongly than others. 

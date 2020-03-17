@@ -35,9 +35,9 @@
 <meta property="og:type" content="article"/>
 <meta property="og:description" content="Plotting change in self-regulation scores from 2014 to 2018"/>
 <meta property="og:url" content="https://github.com/jhwrigh23/class_website/posts/viz3/"/>
-<meta property="og:image" content="https://github.com/jhwrigh23/class_website/posts/viz3/viz3_files/figure-html5/unnamed-chunk-5-1.png"/>
-<meta property="og:image:width" content="1248"/>
-<meta property="og:image:height" content="768"/>
+<meta property="og:image" content="https://github.com/jhwrigh23/class_website/posts/viz3/viz3_files/figure-html5/unnamed-chunk-6-1.png"/>
+<meta property="og:image:width" content="960"/>
+<meta property="og:image:height" content="960"/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:site_name" content="Data Visualization Winter 2020"/>
 
@@ -46,9 +46,9 @@
 <meta property="twitter:title" content="Data Visualization Winter 2020: Visualization #3"/>
 <meta property="twitter:description" content="Plotting change in self-regulation scores from 2014 to 2018"/>
 <meta property="twitter:url" content="https://github.com/jhwrigh23/class_website/posts/viz3/"/>
-<meta property="twitter:image" content="https://github.com/jhwrigh23/class_website/posts/viz3/viz3_files/figure-html5/unnamed-chunk-5-1.png"/>
-<meta property="twitter:image:width" content="1248"/>
-<meta property="twitter:image:height" content="768"/>
+<meta property="twitter:image" content="https://github.com/jhwrigh23/class_website/posts/viz3/viz3_files/figure-html5/unnamed-chunk-6-1.png"/>
+<meta property="twitter:image:width" content="960"/>
+<meta property="twitter:image:height" content="960"/>
 
 <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->
 <meta name="citation_title" content="Data Visualization Winter 2020: Visualization #3"/>
@@ -65,7 +65,7 @@
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["viz3_files/bowser-1.9.3/bowser.min.js","viz3_files/distill-2.2.21/template.v2.js","viz3_files/figure-html5/unnamed-chunk-1-1.png","viz3_files/figure-html5/unnamed-chunk-2-1.png","viz3_files/figure-html5/unnamed-chunk-3-1.png","viz3_files/figure-html5/unnamed-chunk-4-1.png","viz3_files/figure-html5/unnamed-chunk-5-1.png","viz3_files/figure-html5/viz3-1.png","viz3_files/figure-html5/viz3-vers1-1.png","viz3_files/figure-html5/viz3-vers2-1.png","viz3_files/figure-html5/viz3-vers4-1.png","viz3_files/jquery-1.11.3/jquery.min.js","viz3_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["viz3_files/bowser-1.9.3/bowser.min.js","viz3_files/distill-2.2.21/template.v2.js","viz3_files/figure-html5/unnamed-chunk-1-1.png","viz3_files/figure-html5/unnamed-chunk-2-1.png","viz3_files/figure-html5/unnamed-chunk-3-1.png","viz3_files/figure-html5/unnamed-chunk-4-1.png","viz3_files/figure-html5/unnamed-chunk-5-1.png","viz3_files/figure-html5/unnamed-chunk-6-1.png","viz3_files/figure-html5/viz3-1.png","viz3_files/figure-html5/viz3-vers1-1.png","viz3_files/figure-html5/viz3-vers2-1.png","viz3_files/figure-html5/viz3-vers4-1.png","viz3_files/jquery-1.11.3/jquery.min.js","viz3_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 
@@ -1350,6 +1350,7 @@ library(ggtext)</code></pre>
 </div>
 <p>The purpose of Plot 3 is to see how self-regulation scores have changed over the course of the OKA. I chose to compare the recent data (2018-2019) with data from the first wave of the OKA (2014-2015).</p>
 <p>To do so, I first needed to load the 2014-2015 data. I cleaned it in the same way I cleaned my initial (2018-2019) data. Then I joined the two waves. Once the data were joined, I used <code>pivot_longer</code> to create columns for each year so that I could compare across years.</p>
+<p>Then I was ready to try plotting:</p>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
@@ -1359,7 +1360,6 @@ library(ggtext)</code></pre>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
-Here’s the initial plot:
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="viz3_files/figure-html5/unnamed-chunk-1-1.png" width="624" /></p>
 </div>
@@ -1375,9 +1375,13 @@ Here’s the initial plot:
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="viz3_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
 </div>
-<p>Although this works, I finally, I wanted to highlight the counties which saw <strong>increases</strong> in scores vs. the counties that saw <strong>decreases</strong> in scores. This is the main point of the plot and should be immediately evident to the viewer.</p>
+<p>I also made the scale colors display in the subtitle rather than in a legend.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="viz3_files/figure-html5/unnamed-chunk-5-1.png" width="624" data-distill-preview=1 /></p>
+<p><img src="viz3_files/figure-html5/unnamed-chunk-5-1.png" width="624" /></p>
+</div>
+<p>Although this works, I wanted to highlight the counties which saw <strong>increases</strong> in scores vs. the counties that saw <strong>decreases</strong> in scores. This is the main point of the plot and should be immediately evident to the viewer. To do this, I added another <code>geom_line</code> for only those counties that saw decreases. I also reversed the <code>fct_reorder</code> so that counties with increases were at the top and counties with decreases were at the bottom.</p>
+<div class="layout-chunk" data-layout="l-body-outset">
+<p><img src="viz3_files/figure-html5/unnamed-chunk-6-1.png" width="480" data-distill-preview=1 /></p>
 </div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

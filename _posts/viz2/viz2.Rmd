@@ -1,5 +1,5 @@
 ---
-title: "Visualization 2"
+title: "Visualization #2"
 description: |
   Comparing self-regulation scores by race
 author:
@@ -244,7 +244,7 @@ d2 %>%
 ```
 
 
-```{r viz2-vers9}
+```{r, preview=TRUE}
 
 d2 %>%
   filter(stu_grp == "White" |

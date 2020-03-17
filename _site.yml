@@ -5,8 +5,6 @@ description: |
 output_dir: "docs"
 base_url: https://github.com/jhwrigh23/class_website
 navbar:
-  left: 
-    - text: "Hi!"
   right:
     - text: "Home"
       href: index.html

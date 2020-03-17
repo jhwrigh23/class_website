@@ -1,6 +1,6 @@
 [
   {
-    "path": "posts/2020-03-10-loading-and-cleaning-the-data/",
+    "path": "posts/1-loading-and-cleaning-the-data/",
     "title": "Set up",
     "description": "Here is the code for loading and initial cleaning of the data.",
     "author": [
@@ -16,7 +16,7 @@
   },
   {
     "path": "posts/viz2/",
-    "title": "Visualization 2",
+    "title": "Visualization #2",
     "description": "Comparing self-regulation scores by race",
     "author": [
       {
@@ -26,14 +26,14 @@
     ],
     "date": "2020-03-09",
     "categories": [],
-    "preview": "posts/viz2/viz2_files/figure-html5/viz2-vers1-1.png",
-    "last_modified": "2020-03-14T17:31:32-07:00",
+    "preview": "posts/viz2/viz2_files/figure-html5/unnamed-chunk-3-1.png",
+    "last_modified": "2020-03-17T10:51:38-07:00",
     "preview_width": 1248,
     "preview_height": 768
   },
   {
     "path": "posts/viz3/",
-    "title": "Visualization 3",
+    "title": "Visualization #3",
     "description": "Change in self-regulation scores from 2013 to 2018",
     "author": [
       {
@@ -43,14 +43,14 @@
     ],
     "date": "2020-03-09",
     "categories": [],
-    "preview": "posts/viz3/viz3_files/figure-html5/viz3-vers1-1.png",
-    "last_modified": "2020-03-14T17:35:24-07:00",
+    "preview": "posts/viz3/viz3_files/figure-html5/unnamed-chunk-1-1.png",
+    "last_modified": "2020-03-17T10:52:08-07:00",
     "preview_width": 1248,
     "preview_height": 768
   },
   {
     "path": "posts/viz1/",
-    "title": "Visualization 1",
+    "title": "Visualization #1",
     "description": "Mapping self-regulation scores by county",
     "author": [
       {
@@ -60,8 +60,8 @@
     ],
     "date": "2020-02-26",
     "categories": [],
-    "preview": "posts/viz1/viz1_files/figure-html5/viz1-vers1-1.png",
-    "last_modified": "2020-03-14T17:28:19-07:00",
+    "preview": "posts/viz1/viz1_files/figure-html5/unnamed-chunk-1-1.png",
+    "last_modified": "2020-03-17T10:50:42-07:00",
     "preview_width": 1248,
     "preview_height": 1344
   }

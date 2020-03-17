@@ -1,5 +1,5 @@
 ---
-title: "Visualization 3"
+title: "Visualization #3"
 description: |
   Change in self-regulation scores from 2013 to 2018
 author:
@@ -176,7 +176,7 @@ join2 %>%
 ```
 
 
-```{r viz3-vers4}
+```{r, preview=TRUE}
 
 join2 <- join2 %>%
   mutate(county = str_to_title(county))

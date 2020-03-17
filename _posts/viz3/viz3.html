@@ -21,7 +21,7 @@
   <!--radix_placeholder_meta_tags-->
   <title>Visualization #3</title>
   
-  <meta property="description" itemprop="description" content="Change in self-regulation scores from 2013 to 2018"/>
+  <meta property="description" itemprop="description" content="Plotting change in self-regulation scores from 2014 to 2018"/>
   
   
   <!--  https://schema.org/Article -->
@@ -32,24 +32,24 @@
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Visualization #3"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="Change in self-regulation scores from 2013 to 2018"/>
+  <meta property="og:description" content="Plotting change in self-regulation scores from 2014 to 2018"/>
   <meta property="og:locale" content="en_US"/>
   
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="Visualization #3"/>
-  <meta property="twitter:description" content="Change in self-regulation scores from 2013 to 2018"/>
+  <meta property="twitter:description" content="Plotting change in self-regulation scores from 2014 to 2018"/>
   
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Visualization #3"]},{"type":"character","attributes":{},"value":["Change in self-regulation scores from 2013 to 2018\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Joanna Wright"]},{"type":"character","attributes":{},"value":["https://github.com/jhwrigh23"]}]}]},{"type":"character","attributes":{},"value":["03-09-2020"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Visualization #3"]},{"type":"character","attributes":{},"value":["Plotting change in self-regulation scores from 2014 to 2018\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Joanna Wright"]},{"type":"character","attributes":{},"value":["https://github.com/jhwrigh23"]}]}]},{"type":"character","attributes":{},"value":["03-09-2020"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["viz3_files/bowser-1.9.3/bowser.min.js","viz3_files/distill-2.2.21/template.v2.js","viz3_files/figure-html5/unnamed-chunk-1-1.png","viz3_files/figure-html5/unnamed-chunk-2-1.png","viz3_files/figure-html5/viz3-1.png","viz3_files/figure-html5/viz3-vers1-1.png","viz3_files/figure-html5/viz3-vers2-1.png","viz3_files/figure-html5/viz3-vers4-1.png","viz3_files/jquery-1.11.3/jquery.min.js","viz3_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["viz3_files/bowser-1.9.3/bowser.min.js","viz3_files/distill-2.2.21/template.v2.js","viz3_files/figure-html5/unnamed-chunk-1-1.png","viz3_files/figure-html5/unnamed-chunk-2-1.png","viz3_files/figure-html5/unnamed-chunk-3-1.png","viz3_files/figure-html5/unnamed-chunk-4-1.png","viz3_files/figure-html5/unnamed-chunk-5-1.png","viz3_files/figure-html5/viz3-1.png","viz3_files/figure-html5/viz3-vers1-1.png","viz3_files/figure-html5/viz3-vers2-1.png","viz3_files/figure-html5/viz3-vers4-1.png","viz3_files/jquery-1.11.3/jquery.min.js","viz3_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -942,7 +942,7 @@
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Visualization #3","description":"Change in self-regulation scores from 2013 to 2018","authors":[{"author":"Joanna Wright","authorURL":"https://github.com/jhwrigh23","affiliation":"&nbsp;","affiliationURL":"#"}],"publishedDate":"2020-03-09T00:00:00.000-07:00","citationText":"Wright, 2020"}
+{"title":"Visualization #3","description":"Plotting change in self-regulation scores from 2014 to 2018","authors":[{"author":"Joanna Wright","authorURL":"https://github.com/jhwrigh23","affiliation":"&nbsp;","affiliationURL":"#"}],"publishedDate":"2020-03-09T00:00:00.000-07:00","citationText":"Wright, 2020"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -953,7 +953,7 @@
 
 <div class="d-title">
 <h1>Visualization #3</h1>
-<p>Change in self-regulation scores from 2013 to 2018</p>
+<p>Plotting change in self-regulation scores from 2014 to 2018</p>
 </div>
 
 <div class="d-byline">
@@ -963,6 +963,7 @@
 </div>
 
 <div class="d-article">
+<p>Here are the libraries needed for this plot:</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 library(tidyverse)
@@ -980,27 +981,35 @@ library(ggtext)</code></pre>
 
 </div>
 <p>The purpose of Plot 3 is to see how self-regulation scores have changed over the course of the OKA. I chose to compare the recent data (2018-2019) with data from the first wave of the OKA (2014-2015).</p>
-<p>To do so, I first needed to load the 2014-2015 data. I cleaned it in the same way I cleaned my initial (2018-2019) data.</p>
+<p>To do so, I first needed to load the 2014-2015 data. I cleaned it in the same way I cleaned my initial (2018-2019) data. Then I joined the two waves. Once the data were joined, I used <code>pivot_longer</code> to create columns for each year so that I could compare across years.</p>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
-<p>Then I joined the two waves.</p>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
-<p>Once the data were joined, I created new columns for each year so that I could compare across years.</p>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
-Ready to try plotting:
+Here’s the initial plot:
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="viz3_files/figure-html5/viz3-vers1-1.png" width="624" /></p>
+<p><img src="viz3_files/figure-html5/unnamed-chunk-1-1.png" width="624" /></p>
 </div>
+<p>But this is difficult to make sense of, particularly because the arrangement of counties in alphabetical order does nothing to help us understand the data. So, I reordered counties by average score:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="viz3_files/figure-html5/viz3-vers2-1.png" width="624" /></p>
+<p><img src="viz3_files/figure-html5/unnamed-chunk-2-1.png" width="624" /></p>
 </div>
+<p>But this still isn’t super helpful, because counties that saw increases in scores are all mixed up with counties that saw decreases in scores. Instead, I wanted to arrange counties not by average score, but by the change from 2014 to 2018. Hopefully, this would enable the viewer to easily identify counties in which scores may be decreasing, which can inform choices about providing resources to support those locales.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="viz3_files/figure-html5/unnamed-chunk-1-1.png" width="624" data-distill-preview=1 /></p>
+<p><img src="viz3_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
+</div>
+<p>That is better, but improvements could also be made in overall readability (e.g. due to plot dimensions, it’s hard to tell which dot-line belongs to which county) and other aspects of tidying (e.g. title case for county names). I also tried playing with the color palette.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="viz3_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
+</div>
+<p>Although this works, I finally, I wanted to highlight the counties which saw <strong>increases</strong> in scores vs. the counties that saw <strong>decreases</strong> in scores. This is the main point of the plot and should be immediately evident to the viewer.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="viz3_files/figure-html5/unnamed-chunk-5-1.png" width="624" data-distill-preview=1 /></p>
 </div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

@@ -1,7 +1,7 @@
 ---
 title: "Visualization #3"
 description: |
-  Change in self-regulation scores from 2013 to 2018
+  Plotting change in self-regulation scores from 2014 to 2018
 author:
   - name: Joanna Wright
     url: https://github.com/jhwrigh23
@@ -15,6 +15,8 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+Here are the libraries needed for this plot: 
+
 ```{r libraries, echo=TRUE}
 
 library(tidyverse)
@@ -26,7 +28,6 @@ library(mapdata)
 library(ggtext)
 
 ```
-
 
 ```{r loading-the-data, echo=FALSE, results='hide'}
 
@@ -57,12 +58,10 @@ d_tidy = d_tidy[-1,]
 
 ```
 
-
 The purpose of Plot 3 is to see how self-regulation scores have changed over the course of the OKA. I chose to compare the recent data (2018-2019) with data from the first wave of the OKA (2014-2015). 
 
-To do so, I first needed to load the 2014-2015 data. I cleaned it in the same way I cleaned my initial (2018-2019) data. 
-
-
+To do so, I first needed to load the 2014-2015 data. I cleaned it in the same way I cleaned my initial (2018-2019) data. Then I joined the two waves. Once the data were joined, I used `pivot_longer` to create  columns for each year so that I could compare across years.
+ 
 ```{r loading-2014-2015-data, results='hide'}
 dfirstwave <- import(here("data", "ka_2013-14_lookback_report.xlsx")) %>%
   clean_names()
@@ -79,8 +78,6 @@ dfirstwave1 <- dfirstwave %>%
          avg_self_reg = x9) %>%
   select(c(1:9))
 ```
-
-Then I joined the two waves. 
 
 ```{r joining}
 
@@ -115,8 +112,6 @@ join2 <- join2 %>%
 
 ```
 
-Once the data were joined, I created new columns for each year so that  I could compare across years. 
-
 ```{r pivoting}
 
 join2 <- join2 %>%
@@ -125,11 +120,47 @@ join2 <- join2 %>%
     names_to = "Year", 
     values_to = "Score",
   )
-
 ```
 
-Ready to try plotting: 
-```{r viz3-vers1}
+Here's the initial plot: 
+```{r}
+join2 %>%
+  group_by(county, Year) %>%
+  summarise(avg_score = mean(Score)) %>%
+  ggplot(aes(county, avg_score)) +
+  geom_line(aes(group = county), color = "gray40") +
+  geom_point(aes(color = Year)) +
+  coord_flip() +
+  labs(title = "Self Regulation Score Changes from 2014 to 2018",
+       x = NULL,
+       y = "Score (on 1-5 scale)")
+```
+
+But this is difficult to make sense of, particularly because the arrangement of counties in alphabetical order does nothing to help us understand the data. So, I reordered counties by average score: 
+
+```{r}
+join2 %>%
+  group_by(county, Year) %>%
+  summarise(avg_score = mean(Score)) %>%
+  filter(county != "all counties") %>%
+  ungroup() %>%
+  ggplot(aes(fct_reorder(county, avg_score), avg_score)) +
+  geom_line(aes(group = county), color = "gray40") +
+  geom_point(aes(color = Year), size = 1.5) +
+  coord_flip() +
+  theme(
+    plot.title.position = "plot",
+    plot.subtitle = element_markdown()) +
+  labs(title = "Self Regulation Score Changes from 2014 to 2018",
+       subtitle = "<span style = 'color:#FF6C67;'>2014</span> compared to <span style = 'color:#00C2C6;'>2018 </span>change.",
+       x = NULL,
+       y = "Score (on 1-5 scale)") + 
+  guides(color = "none")
+
+```
+But this still isn't super helpful, because counties that saw increases in scores are all mixed up with counties that saw decreases in scores. Instead, I wanted to arrange counties not by average score, but by the change from 2014 to 2018. Hopefully, this would enable the viewer to easily identify counties in which scores may be decreasing, which can inform choices about providing resources to support those locales.   
+
+```{r }
 
 join2 %>%
   group_by(county, Year) %>%
@@ -149,34 +180,14 @@ join2 %>%
   geom_line(aes(group = county), color = "gray40") +
   coord_flip() +
   theme_minimal() +
-  labs(title = "Self Regulation Score Changes from 2013 to 2018",
+  labs(title = "Self Regulation Score Changes from 2014 to 2018",
        x = NULL,
        y = "Score (on 1-5 scale)")
-
 ```
 
+That is better, but improvements could also be made in overall readability (e.g. due to plot dimensions, it's hard to tell which dot-line belongs to which county) and other aspects of tidying (e.g. title case for county names). I also tried playing with the color palette.  
 
-```{r viz3-vers2}
-
-join2 %>%
-  group_by(county, Year) %>%
-  summarise(avg_score = mean(Score)) %>%
-  ggplot(aes(fct_reorder(county, avg_score), avg_score)) +
-  geom_line(aes(group = county), color = "gray40") +
-  geom_point(aes(color = Year), size = 1.5) +
-  coord_flip() +
-  theme(
-    plot.title.position = "plot",
-    plot.subtitle = element_markdown()) +
-  labs(title = "Self Regulation Score Changes from 2013 to 2018",
-       subtitle = "<span style = 'color:#FF6C67;'>2014</span> comparied to <span style = 'color:#00C2C6;'>2018 </span>change.",
-       x = NULL,
-       y = "Score (on 1-5 scale)") + 
-  guides(color = "none")
-```
-
-
-```{r, preview=TRUE}
+```{r }
 
 join2 <- join2 %>%
   mutate(county = str_to_title(county))
@@ -207,4 +218,94 @@ join2 %>%
   scale_color_brewer(palette = "Set1")
 
 ```
+
+I also made the scale colors display in the subtitle rather than in a legend.  
+
+```{r preview=TRUE}
+
+join2 %>%
+  group_by(county, Year) %>%
+  summarise(avg_score = mean(Score)) %>%
+  pivot_wider(
+    names_from = "Year",
+    values_from = "avg_score"
+  ) %>%
+  mutate(change_14_to_18 = c(`2018` - `2014`)) %>%
+  pivot_longer(
+    cols = 2:3,
+    names_to = "Year",
+    values_to = "Score"
+    ) %>%
+  filter(county != "all counties") %>%
+  ggplot(aes(fct_reorder(county, -change_14_to_18), Score, color = Year)) +
+  geom_line(aes(group = county), 
+            color = "gray40", 
+            size = 1) +
+  geom_point(size = 2.2) +
+  scale_color_manual(
+    name = NULL,
+    values = c(`2014` = "#377eb8", `2018` = "#e41a1c")) +
+  coord_flip() +
+  theme_minimal() +
+  theme(
+    plot.title.position = "plot",
+    plot.subtitle = element_markdown()) +
+  labs(title = "Changes in Average Self-Regulation Scores by County",
+       subtitle = "<span style = 'color:#377eb8;'>2014</span> to <span style = 'color:#e41a1c;'>2018 </span>",
+       x = NULL,
+       y = "Score (on 1-5 scale)") + 
+  guides(color = "none")
+
+```
+
+Although this works, I wanted to highlight the counties which saw **increases** in scores vs. the counties that saw **decreases** in scores. This is the main point of the plot and should be immediately evident to the viewer.
+
+```{r}
+
+join2 <- join2 %>%
+  group_by(county, Year) %>%
+  summarise(avg_score = mean(Score)) %>%
+  pivot_wider(
+    names_from = "Year",
+    values_from = "avg_score"
+  ) %>%
+  mutate(change_14_to_18 = c(`2018` - `2014`)) %>%
+  pivot_longer(
+    cols = 2:3,
+    names_to = "Year",
+    values_to = "Score"
+    ) %>%
+  filter(county != "all counties")
+
+join2$change_14_to_18 = as.numeric(join2$change_14_to_18)
+
+join2_decreased <- join2 %>%
+  filter(change_14_to_18 < 0)
+
+join2 %>%
+  ggplot(aes(fct_reorder(county, -change_14_to_18), Score, color = Year)) +
+  geom_line(aes(group = county), 
+            color = "gray40", 
+            size = 1) +
+  geom_line(data = join2_decreased, aes(group = county),
+            color = "#e41a1c",
+            size = 1) + 
+  geom_point(size = 2.4) +
+  scale_color_manual(
+    name = NULL,
+    values = c(`2014` = "#6baed6", `2018` = "#084594")) +
+  coord_flip() +
+  theme_minimal() + 
+  theme(
+    plot.title.position = "plot",
+    plot.subtitle = element_markdown()) +
+  labs(title = "Changes in Average Self-Regulation Scores by County",
+       subtitle = "<span style = 'color:#6baed6;'>2014</span> to <span style = 'color:#084594;'>2018</span>, with<span style = 'color:#e41a1c;'</span> decreases over time </span>highlighted", 
+       x = NULL,
+       y = "Score (on 1-5 scale)") + 
+  guides(color = "none")
+
+```
+
+
 

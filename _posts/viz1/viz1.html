@@ -49,7 +49,7 @@
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["viz1/bowser-1.9.3/bowser.min.js","viz1/core-js-2.5.3/LICENSE","viz1/core-js-2.5.3/package.json","viz1/core-js-2.5.3/shim.min.js","viz1/distill-2.2.21/template.v2.js","viz1/figure-html5/unnamed-chunk-1-1.png","viz1/figure-html5/unnamed-chunk-2-1.png","viz1/figure-html5/Viz #1 Refining-1.png","viz1/figure-html5/Viz #1-1.png","viz1/figure-html5/viz1-1.png","viz1/figure-html5/viz1-refining-1.png","viz1/htmlwidgets-1.5.1/htmlwidgets.js","viz1/jquery-1.11.3/jquery.min.js","viz1/react-16.12.0/AUTHORS","viz1/react-16.12.0/LICENSE.txt","viz1/react-16.12.0/react-dom.min.js","viz1/react-16.12.0/react.min.js","viz1/reactable-binding-0.1.0/reactable.js","viz1/reactwidget-1.0.0/react-tools.js","viz1/reactwidget-1.0.0/react-tools.js.map","viz1/webcomponents-2.0.0/webcomponents.js","viz1_files/bowser-1.9.3/bowser.min.js","viz1_files/core-js-2.5.3/LICENSE","viz1_files/core-js-2.5.3/package.json","viz1_files/core-js-2.5.3/shim.min.js","viz1_files/distill-2.2.21/template.v2.js","viz1_files/figure-html5/unnamed-chunk-1-1.png","viz1_files/figure-html5/viz1-1.png","viz1_files/figure-html5/viz1-refining-1.png","viz1_files/figure-html5/viz1-vers1-1.png","viz1_files/figure-html5/viz1-vers2-1.png","viz1_files/figure-html5/viz1-vers3-1.png","viz1_files/figure-html5/viz1-vers4-1.png","viz1_files/figure-html5/viz1-vers5-1.png","viz1_files/htmlwidgets-1.5.1/htmlwidgets.js","viz1_files/jquery-1.11.3/jquery.min.js","viz1_files/react-16.12.0/AUTHORS","viz1_files/react-16.12.0/LICENSE.txt","viz1_files/react-16.12.0/react-dom.min.js","viz1_files/react-16.12.0/react.min.js","viz1_files/reactable-binding-0.1.0/reactable.js","viz1_files/reactwidget-1.0.0/react-tools.js","viz1_files/reactwidget-1.0.0/react-tools.js.map","viz1_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["viz1/bowser-1.9.3/bowser.min.js","viz1/core-js-2.5.3/LICENSE","viz1/core-js-2.5.3/package.json","viz1/core-js-2.5.3/shim.min.js","viz1/distill-2.2.21/template.v2.js","viz1/figure-html5/unnamed-chunk-1-1.png","viz1/figure-html5/unnamed-chunk-2-1.png","viz1/figure-html5/Viz #1 Refining-1.png","viz1/figure-html5/Viz #1-1.png","viz1/figure-html5/viz1-1.png","viz1/figure-html5/viz1-refining-1.png","viz1/htmlwidgets-1.5.1/htmlwidgets.js","viz1/jquery-1.11.3/jquery.min.js","viz1/react-16.12.0/AUTHORS","viz1/react-16.12.0/LICENSE.txt","viz1/react-16.12.0/react-dom.min.js","viz1/react-16.12.0/react.min.js","viz1/reactable-binding-0.1.0/reactable.js","viz1/reactwidget-1.0.0/react-tools.js","viz1/reactwidget-1.0.0/react-tools.js.map","viz1/webcomponents-2.0.0/webcomponents.js","viz1_files/bowser-1.9.3/bowser.min.js","viz1_files/core-js-2.5.3/LICENSE","viz1_files/core-js-2.5.3/package.json","viz1_files/core-js-2.5.3/shim.min.js","viz1_files/distill-2.2.21/template.v2.js","viz1_files/figure-html5/unnamed-chunk-1-1.png","viz1_files/figure-html5/unnamed-chunk-2-1.png","viz1_files/figure-html5/unnamed-chunk-3-1.png","viz1_files/figure-html5/unnamed-chunk-4-1.png","viz1_files/figure-html5/viz1-1.png","viz1_files/figure-html5/viz1-refining-1.png","viz1_files/figure-html5/viz1-vers1-1.png","viz1_files/figure-html5/viz1-vers2-1.png","viz1_files/figure-html5/viz1-vers3-1.png","viz1_files/figure-html5/viz1-vers4-1.png","viz1_files/figure-html5/viz1-vers5-1.png","viz1_files/htmlwidgets-1.5.1/htmlwidgets.js","viz1_files/jquery-1.11.3/jquery.min.js","viz1_files/react-16.12.0/AUTHORS","viz1_files/react-16.12.0/LICENSE.txt","viz1_files/react-16.12.0/react-dom.min.js","viz1_files/react-16.12.0/react.min.js","viz1_files/reactable-binding-0.1.0/reactable.js","viz1_files/reactwidget-1.0.0/react-tools.js","viz1_files/reactwidget-1.0.0/react-tools.js.map","viz1_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -963,9 +963,18 @@
 </div>
 
 <div class="d-article">
-Libraries for Visualization 1:
 <div class="layout-chunk" data-layout="l-body">
-
+<pre class="r"><code>
+library(tidyverse)
+library(rio)
+library(here)
+library(janitor)
+library(maps)
+library(mapdata)
+library(ggtext)
+library(colorblindr)
+library(sf)
+library(sp)</code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 
@@ -973,16 +982,14 @@ Libraries for Visualization 1:
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
-<p>The purpose of Plot 1 is to explore differences in average self-regulation scores across counties and represent this geographically.</p>
-<p>To do so, I first needed to load Oregon county map data and then join the OKA dataset with the mapping data.</p>
+<p>The purpose of Plot 1 is to explore differences in average self-regulation scores across counties and represent this geographically. A geographic heat map could be a useful way of quickly getting a sense of higher and lower scores across the state. To do this, I joined my data with OR county mapping data. The initial map looked like this:</p>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
-<p>Then I tried creating the map:</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="viz1_files/figure-html5/viz1-vers1-1.png" width="624" /></p>
 </div>
-<p>This map would be more informative if the counties were labeled.</p>
+<p>Of course, the map would be much more informative if the counties were labeled. But clearly this was easier said than done.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="viz1_files/figure-html5/viz1-vers2-1.png" width="624" /></p>
 </div>
@@ -990,13 +997,20 @@ Libraries for Visualization 1:
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="viz1_files/figure-html5/viz1-vers3-1.png" width="624" /></p>
 </div>
-<p>While this accomplished what I wanted it to functionally, it doesn’t look very nice. The blue labels are difficult to read against this these scale colors. So I tried it a few different ways.</p>
+<p>While this accomplished what I wanted it to functionally, it doesn’t look very nice. The blue labels are difficult to read against this these scale colors. I tried out a couple of different palettes.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="viz1_files/figure-html5/viz1-vers4-1.png" width="624" /></p>
+<p><img src="viz1_files/figure-html5/unnamed-chunk-1-1.png" width="624" /></p>
 </div>
-Some final refining:
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="viz1_files/figure-html5/unnamed-chunk-1-1.png" width="624" data-distill-preview=1 /></p>
+<p><img src="viz1_files/figure-html5/unnamed-chunk-2-1.png" width="624" /></p>
+</div>
+<p>This is getting closer to what I want. It uses a color-blind accessible palette, represents the sequential scale using colors that diverge from the middle, and allows us to read the labels clearly. However, I’d like to make the color scale more intuitive by making red hues represent lower scores and blue hues represent higher scores. This was an easy fix using <code>direction = &quot;horizontal&quot;</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="viz1_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
+</div>
+<p>Last, I made some final refinements for easy readability, including making the county labels larger, using <code>str_to_title</code> for county names, putting the legend on the bottom, and adjusting the aspect ratio. I also used <code>check_overlap = TRUE</code> to manage the issue of county labels overlapping. This isn’t a full soluation, because it results in a couple of counties being unlabeled. But it was the best solution I could find for now, and it at least has most counties labeled and makes the map legible.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="viz1_files/figure-html5/unnamed-chunk-4-1.png" width="624" data-distill-preview=1 /></p>
 </div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

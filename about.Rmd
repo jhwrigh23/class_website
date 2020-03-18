@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = FALSE)
 library(here)
 ```
 
-This is my final project for EDUC 610: Communicating and Transforming Data in R at the University of Oregon. 
+This is my final project for *_EDUC 610: Communicating and Transforming Data_* in R at the University of Oregon. 
 
 The data for this project are from the **Oregon Kindergarten Aseessment** and can be found [here](https://www.oregon.gov/ode/educator-resources/assessment/Pages/Kindergarten-Assessment.aspx).
 
@@ -20,7 +20,7 @@ According to their website, OKA aims to:
 
 The purpose of these visualizations is to support the administering body, the Oregon Department of Education, in addressing these aims, specifically by highlighting discrepancies in self-regulation between counties. This kind of information could also aid state-level policymakers in resource allocation decisions. 
 
-However, these visualizations have significant limitations which are discussed in each post. Further work would need to be done, especially by including all waves of data as well as accounting for population size across racial groups, for these visualizations to be more meaningful.
+However, these visualizations have significant limitations. Further work would need to be done, especially by including all waves of data as well as accounting for population size across counties and racial groups, for these visualizations to be more meaningful.
 
 Thank you for exploring my (*_novice!_*) forays into data visualization in R. This is how I felt when I began the course: 
 

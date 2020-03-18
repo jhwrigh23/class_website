@@ -12,7 +12,7 @@
     "date": "2020-03-18",
     "categories": [],
     "preview": {},
-    "last_modified": "2020-03-18T10:07:31-07:00"
+    "last_modified": "2020-03-18T10:28:46-07:00"
   },
   {
     "path": "posts/viz1/",
@@ -27,8 +27,8 @@
     "date": "2020-03-18",
     "categories": [],
     "preview": "posts/viz1/viz1_files/figure-html5/unnamed-chunk-4-1.png",
-    "last_modified": "2020-03-18T10:00:44-07:00",
-    "preview_width": 1248,
+    "last_modified": "2020-03-18T10:35:15-07:00",
+    "preview_width": 1344,
     "preview_height": 1536
   },
   {
@@ -43,10 +43,10 @@
     ],
     "date": "2020-03-18",
     "categories": [],
-    "preview": "posts/viz2/viz2_files/figure-html5/unnamed-chunk-7-1.png",
-    "last_modified": "2020-03-18T10:22:47-07:00",
-    "preview_width": 1152,
-    "preview_height": 1152
+    "preview": "posts/viz2/viz2_files/figure-html5/vs2-1.png",
+    "last_modified": "2020-03-18T10:43:27-07:00",
+    "preview_width": 2496,
+    "preview_height": 960
   },
   {
     "path": "posts/viz3/",

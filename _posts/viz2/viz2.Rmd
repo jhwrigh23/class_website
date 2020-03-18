@@ -23,6 +23,7 @@ library(here)
 library(janitor)
 library(gt)
 library(ggrepel)
+library(ggtext)
 ```
 
 
@@ -106,9 +107,6 @@ ggplot(aes(avg_self_reg, fct_reorder(stu_grp, avg_self_reg))) +
        x = NULL,
        y = NULL)
 
-d2 %>%
-  ggplot(aes(avg_self_reg, fct_reorder(stu_grp, avg_self_reg))) +
-  geom_violin(fill = "cornflowerblue")
 
 d2 %>%
   ggplot(aes(avg_self_reg, fct_reorder(stu_grp, avg_self_reg), fill = stu_grp)) +
@@ -137,7 +135,7 @@ d2 %>%
 
 I refined what I thought was the most effective distribution plot further by changing the y-axis to proportion, making y-axis labels percentages, and making the plot larger:  
 
-```{r, vs2, layout = "l-page", fig.width=13, fig.height=4}
+```{r, vs2, layout="l-screen-inset", fig.width=13, fig.height=4}
 
 d2 %>%
   ggplot(aes(avg_self_reg)) +
@@ -153,7 +151,8 @@ d2 %>%
        x = "Self-Regulation Score (on a 1-5 scale)",
        y = NULL) +
   theme(axis.text=element_text(size=12),
-        axis.title=element_text(size=14)) +
+        axis.title=element_text(size=14),
+        plot.margin = margin(1,1,1,1,"cm")) +
   scale_y_continuous(name = "Percentage", labels=scales::percent)
 
 ```
@@ -259,63 +258,6 @@ d2 %>%
 
 It's still hard to tell what the legend means, so I tried this another way: 
 
-```{r viz2-vers8}
-
-d2 %>%
-  filter(stu_grp == "White" |
-           stu_grp == "Hispanic/Latino") %>%
-  group_by(stu_grp, county) %>%
-  summarise(avg_self_reg_race = mean(avg_self_reg)) %>%
-  pivot_wider(
-    names_from = stu_grp,
-    values_from = avg_self_reg_race
-  ) %>%
-  mutate(white_hisp_diff = c(White - `Hispanic/Latino`)) %>%
-  filter(white_hisp_diff != "NA") %>%
-  ggplot(aes(fct_reorder(county, white_hisp_diff), white_hisp_diff, 
-         fill = white_hisp_diff > 0)) +
-  geom_bar(stat = 'identity') +
-  scale_fill_viridis_d(name = "Average White student scores higher than Hispanic/Latino") +
-  coord_flip() + 
-  labs(title = "Differences Self-Regulation Scores by Race in Oregon",
-       subtitle = "Disparities in scores between White and Hispanic/Latino students",
-       x = NULL,
-       y = "Difference in scores") +
-  theme_dark() + 
-  theme(legend.position = "bottom")
-
-```
-
-
-```{r, preview=TRUE}
-
-d2 %>%
-  filter(stu_grp == "White" |
-           stu_grp == "Hispanic/Latino") %>%
-  group_by(stu_grp, county) %>%
-  summarise(avg_self_reg_race = mean(avg_self_reg)) %>%
-  pivot_wider(
-    names_from = stu_grp,
-    values_from = avg_self_reg_race
-  ) %>%
-  mutate(white_hisp_diff = c(White - `Hispanic/Latino`)) %>%
-  filter(white_hisp_diff != "NA") %>%
-  ggplot(aes(fct_reorder(county, white_hisp_diff), white_hisp_diff, 
-         fill = white_hisp_diff > 0)) +
-  geom_bar(stat = 'identity') +
-  scale_fill_viridis_d(name = "Average White student scores higher than Hispanic/Latino") +
-  coord_flip() + 
-  labs(title = "Differences Self-Regulation Scores by Race in Oregon",
-       subtitle = "Disparities in scores between White and Hispanic/Latino students",
-       x = NULL,
-       y = "Difference in scores") +
-  theme_dark() + 
-  theme(legend.position = "bottom")
-
-```
-
-This is getting pretty close! But I'm still stuck with a legend that is a pretty high cognitive load for the viewer. Then I thought that labels would be more effective.  
-
 ```{r}
 
 d2 %>%
@@ -339,11 +281,73 @@ d2 %>%
        subtitle = "Disparities in scores between White and Hispanic/Latino students",
        x = NULL,
        y = "Difference in scores") +
-  theme_minimal() +
-  theme(panel.grid.major.y = element_blank(),
-        legend.position = "bottom")
-
+  theme_minimal()
 ```
 
+That's getting closer, but the legend still asks too much of the viewer to understand the plot. I tried reducing the cognitive load another way, and adjusted the theme settings to clean up the plot further:  
+
+```{r}
+d2 %>%
+  filter(stu_grp == "White" |
+           stu_grp == "Hispanic/Latino") %>%
+  group_by(stu_grp, county) %>%
+  summarise(avg_self_reg_race = mean(avg_self_reg)) %>%
+  pivot_wider(
+    names_from = stu_grp,
+    values_from = avg_self_reg_race
+  ) %>%
+  mutate(white_hisp_diff = c(White - `Hispanic/Latino`)) %>%
+  filter(white_hisp_diff != "NA") %>%
+  ggplot(aes(fct_reorder(county, white_hisp_diff), white_hisp_diff, 
+         fill = white_hisp_diff > 0)) +
+  geom_bar(stat = 'identity',
+           show.legend = FALSE) +
+  scale_fill_brewer(palette = "Set2") +
+  coord_flip() + 
+  labs(title = "Differences in Average Self-Regulation Scores by Race in Oregon Counties",
+       x = NULL,
+       y = "Difference in scores",
+       caption = "<span style = 'color:#fc8d62;'>White average score higher than Hispanic/Latino </span> 
+       <span style = 'color:#66c2a5;'</span> Hispanic/Latino average score higher than White</span>") +
+  theme_minimal() +
+  theme(panel.grid.major.y = element_blank(),
+        legend.position = "bottom",
+        plot.title.position = "plot",
+        plot.caption = element_markdown())
+```
+
+I think that's much better in terms of cognitive load. Some final tidying up: 
+
+```{r, preview=TRUE}
+d2 %>%
+  filter(stu_grp == "White" |
+           stu_grp == "Hispanic/Latino") %>%
+  group_by(stu_grp, county) %>%
+  summarise(avg_self_reg_race = mean(avg_self_reg)) %>%
+  pivot_wider(
+    names_from = stu_grp,
+    values_from = avg_self_reg_race
+  ) %>%
+  mutate(white_hisp_diff = c(White - `Hispanic/Latino`)) %>%
+  filter(white_hisp_diff != "NA") %>%
+  ggplot(aes(fct_reorder(county, white_hisp_diff), white_hisp_diff, 
+         fill = white_hisp_diff > 0)) +
+  geom_bar(stat = 'identity',
+           show.legend = FALSE) +
+  scale_y_continuous(breaks = c(-1, -.75, -.5, -.25, 0, .25, .5)) +
+  scale_fill_brewer(palette = "Set2") +
+  coord_flip() + 
+  labs(title = "Differences in Average Self-Regulation Scores by Race in Oregon Counties",
+       x = NULL,
+       y = "Difference in scores",
+       caption = "<span style = 'color:#66c2a5;'</span> Hispanic/Latino average score higher than White</span>; <span style = 'color:#fc8d62;'>White average score higher than Hispanic/Latino </span>") +
+  theme_minimal() +
+  theme(panel.grid.major.y = element_blank(),
+        legend.position = "bottom",
+        plot.title.position = "plot",
+        plot.caption = element_markdown())
+
+
+```
 
 

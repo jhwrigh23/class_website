@@ -24,8 +24,3 @@ However, these visualizations have significant limitations. Further work would n
 
 Thank you for exploring my (*_novice!_*) forays into data visualization in R.
 
-
-
-
-
-

@@ -179,7 +179,9 @@ counts <- d2 %>%
 reactable::reactable(counts)
 ```
 
-Given that White and Hispanic/Latino students make up a large proportion of the student population in this sample, I decided to look at difference in self-regulation scores between these groups. 
+Given that White and Hispanic/Latino students make up a large proportion of the student population in this sample, I decided to look at difference in self-regulation scores between these groups. Like the other visualizations, I wanted to look at these differences across counties to see if there are particular counties for whom one group of students is scoring much higher or lower than the other.
+
+First, I calculated the difference by subtracting the average Hispanic/Latino scores from the average White scores for each county and made an initial plot of the results:
 
 ```{r viz2}
 
@@ -199,7 +201,8 @@ d2 %>%
 
 ```
 
-Refining the plot to highlight counties in which there is the largest score difference between White and Hispanic/Latino students.  
+Of course, the first step for refining this is the reorder so that it's easier to see which counties show the greatest discrepancy. I used `fct_reorder` and then added `gghighlight` conditions to emphasize counties in which the difference between the two groups was greater than .25. 
+
 
 ```{r viz2-vers6}
 
@@ -228,7 +231,7 @@ d2 %>%
   
 ```
 
-How can this be improved? 
+But this doesn't tell us which counties show White students scoring higher than Hispanic/Latino, and which show the opposite trend. I thought maybe a legend could help with this. 
 
 ```{r viz2-vers7}
 
@@ -254,7 +257,7 @@ d2 %>%
 
 ```
 
-That's easier to read, but it's still hard to tell what it means. I needed to find a way to communicate that the blue represents White student scores being higher than Hispanic, and the red represents Hispanic student scores being higher than White. 
+It's still hard to tell what the legend means, so I tried this another way: 
 
 ```{r viz2-vers8}
 
@@ -280,7 +283,6 @@ d2 %>%
        y = "Difference in scores") +
   theme_dark() + 
   theme(legend.position = "bottom")
-
 
 ```
 
@@ -312,5 +314,36 @@ d2 %>%
 
 ```
 
-This is getting pretty close! I'd still like to change the caption to reduce cognitive load - make it  super clear what data are depicted. 
+This is getting pretty close! But I'm still stuck with a legend that is a pretty high cognitive load for the viewer. Then I thought that labels would be more effective.  
+
+```{r}
+
+d2 %>%
+  filter(stu_grp == "White" |
+           stu_grp == "Hispanic/Latino") %>%
+  group_by(stu_grp, county) %>%
+  summarise(avg_self_reg_race = mean(avg_self_reg)) %>%
+  pivot_wider(
+    names_from = stu_grp,
+    values_from = avg_self_reg_race
+  ) %>%
+  mutate(white_hisp_diff = c(White - `Hispanic/Latino`)) %>%
+  filter(white_hisp_diff != "NA") %>%
+  ggplot(aes(fct_reorder(county, white_hisp_diff), white_hisp_diff, 
+         fill = white_hisp_diff > 0)) +
+  geom_bar(stat = 'identity') +
+  scale_fill_brewer(name = "Average White student scores higher than Hispanic/Latino", 
+                    palette = "Set2") +
+  coord_flip() + 
+  labs(title = "Differences Self-Regulation Scores by Race in Oregon",
+       subtitle = "Disparities in scores between White and Hispanic/Latino students",
+       x = NULL,
+       y = "Difference in scores") +
+  theme_minimal() +
+  theme(panel.grid.major.y = element_blank(),
+        legend.position = "bottom")
+
+```
+
+
 

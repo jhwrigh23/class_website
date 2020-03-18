@@ -122,42 +122,8 @@ d2 %>%
 
 ```
 
-```{r, fig.width=13, fig.height=4}
 
-d2 %>%
-  ggplot(aes(avg_self_reg)) +
-  geom_density(aes(fill = stu_grp, bw = .5),
-               show.legend = FALSE) +
-  facet_wrap(~stu_grp, nrow = 1) + 
-  theme_minimal() + 
-  scale_color_brewer()
-
-```
-
-
-```{r }
-
-d2 %>%
-  ggplot(aes(avg_self_reg)) +
-  geom_density(aes(fill = stu_grp, 
-                   bw = .5),
-                  show.legend = FALSE) +
-  facet_wrap(~stu_grp, nrow = 1) + 
-  theme_minimal() + 
-  scale_color_brewer() +
-  labs(title = "Distributions of Self-Regulation Scores by Race in Oregon",
-       subtitle = "Averages for 2018-2019 school year",
-       x = "Self-Regulation Score (on a 1-5 scale)",
-       y = NULL) +
-  theme(axis.text=element_text(size=12),
-        axis.title=element_text(size=14),
-        plot.margin = margin(1,1,1,1,"cm"))
-
-```
-
-I refined what I thought was the most effective distribution plot further by changing the y-axis to proportion, making y-axis labels percentages, and adjusting the aspect ratio and layout: 
-
-```{r preview= TRUE, vs2, layout="l-screen-inset", fig.width=13, fig.height=5}
+```{r, layout="l-screen-inset", fig.width=13, fig.height=5}
 
 d2 %>%
   ggplot(aes(avg_self_reg)) +
@@ -180,17 +146,16 @@ d2 %>%
 
 ```
 
-Looking at this, though, I realized that it's pretty hard to compare the race groups when it's facet-wrapped. But I like using percent because that's more meaningful to a general audience. So I kept the code from the plot above, but removed the facet wrap and increased the transparency. 
+Of the three of these, I actually liked the first one the best for comparing overall distributions. So I returned to the first one and refined it by adding color, taking the extra space out of the scale, and adjusting aspect ratio and layout. 
 
-```{r}
+```{r, preview=TRUE, layout="l-page", fig.height=7, fig.width=10}
 
 d2 %>%
 ggplot(aes(avg_self_reg, fct_reorder(stu_grp, avg_self_reg), fill = stu_grp)) +
   ggridges::geom_density_ridges(color = "white", 
-                                alpha = 0.8) +
+                                alpha = 0.9) +
   theme_minimal(base_size = 10) + 
-  scale_x_continuous("Self Regulation Scores") +
-  scale_color_brewer() +
+  scale_fill_brewer(palette = "Set2") +
   scale_x_continuous(expand = c(0.0 ,0.0)) +
     labs(title = "Distributions of Self-Regulation Scores by Race in Oregon",
        subtitle = "Averages from 2018-2019 school year",
@@ -203,7 +168,6 @@ ggplot(aes(avg_self_reg, fct_reorder(stu_grp, avg_self_reg), fill = stu_grp)) +
 
 
 ```
-
 
 
 This gives us an overall sense of distribution of scores by race. However, to put these numbers in context, it is important to know that some student groups are represented much more strongly than others. A quick `reactable` plot of totals by student race can tell us this. Since `reactable` is interactive, you can click on **Total** to reorder groups by number of students. 

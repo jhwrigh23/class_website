@@ -60,7 +60,7 @@ d_tidy = d_tidy[-1,]
 
 The purpose of Visualization 3 is to see how self-regulation scores have changed over the course of the OKA. I chose to compare the recent data (2018-2019) with data from the first wave of the OKA (2014-2015). 
 
-To do so, I first needed to load the 2014-2015 data. I cleaned it in the same way I cleaned my initial (2018-2019) data. Then I joined the two waves. Once the data were joined, I used `pivot_longer` to create  columns for each year so that I could compare across years.
+To do so, I first needed to load the 2014-2015 data. I cleaned it in the same way I cleaned the 2018-2019 data. Then I joined the two waves. Once the data were joined, I used `pivot_longer` to create  columns for each year so that I could compare across years.
 
 Then I was ready to try plotting: 
  
@@ -267,7 +267,7 @@ join2 %>%
 Although this works, I wanted to highlight the counties which saw **increases** in scores vs. the counties that saw **decreases** in scores. This is the main point of the plot and should be immediately evident to the viewer. To do this, I added another `geom_line` for only those counties that saw decreases. I also reversed the `fct_reorder` to make it more intuitive, with counties showing increases in scores at the top and counties showing decreases in scores at the bottom:
 
 ## Final Version
-```{r preview=TRUE, fig.width=3, fig.height=3}
+```{r preview=TRUE, layout = "l-body-outset", fig.width=5, fig.height=5}
 
 join2 <- join2 %>%
   group_by(county, Year) %>%

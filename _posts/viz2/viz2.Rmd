@@ -349,7 +349,7 @@ d2 %>%
 I think that's better in terms of cognitive load. Some final tidying up of aspect ratio, layout, color, and title/subtitle: 
 
 ### Final Version 
-```{r, layout="l-body-outset", fig.width=6, fig.height=6}
+```{r, layout="l-body-outset", fig.width=6, fig.height=4.5}
 d2 %>%
   filter(stu_grp == "White" |
            stu_grp == "Hispanic/Latino") %>%

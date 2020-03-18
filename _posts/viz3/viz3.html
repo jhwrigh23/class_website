@@ -973,13 +973,16 @@ library(maps)
 library(mapdata)
 library(ggtext)</code></pre>
 </div>
+<aside>
+Liraries used for this post
+</aside>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
-<p>The purpose of Plot 3 is to see how self-regulation scores have changed over the course of the OKA. I chose to compare the recent data (2018-2019) with data from the first wave of the OKA (2014-2015).</p>
+<p>The purpose of Visualization 3 is to see how self-regulation scores have changed over the course of the OKA. I chose to compare the recent data (2018-2019) with data from the first wave of the OKA (2014-2015).</p>
 <p>To do so, I first needed to load the 2014-2015 data. I cleaned it in the same way I cleaned my initial (2018-2019) data. Then I joined the two waves. Once the data were joined, I used <code>pivot_longer</code> to create columns for each year so that I could compare across years.</p>
 <p>Then I was ready to try plotting:</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -991,28 +994,34 @@ library(ggtext)</code></pre>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
+<h2 id="version-1">Version 1</h2>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="viz3_files/figure-html5/unnamed-chunk-1-1.png" width="624" /></p>
 </div>
 <p>But this is difficult to make sense of, particularly because the arrangement of counties in alphabetical order does nothing to help us understand the data. So, I reordered counties by average score:</p>
+<h2 id="version-2">Version 2</h2>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="viz3_files/figure-html5/unnamed-chunk-2-1.png" width="624" /></p>
 </div>
-<p>But this still isn’t super helpful, because counties that saw increases in scores are all mixed up with counties that saw decreases in scores. Instead, I wanted to arrange counties not by average score, but by the change from 2014 to 2018. Hopefully, this would enable the viewer to easily identify counties in which scores may be decreasing, which can inform choices about providing resources to support those locales.</p>
+<p>But this still isn’t super helpful, because counties that saw increases in scores are all mixed up with counties that saw decreases in scores. Instead, I wanted to arrange counties not by average score, but by the change from 2014 to 2018. Hopefully, this would enable the viewer to easily identify counties in which scores may be decreasing, which can inform choices about providing resources to support those locales:</p>
+<h2 id="version-3">Version 3</h2>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="viz3_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
 </div>
-<p>That is better, but improvements could also be made in overall readability (e.g. due to plot dimensions, it’s hard to tell which dot-line belongs to which county) and other aspects of tidying (e.g. title case for county names). I also tried playing with the color palette.</p>
+<p>That is better. In the next iteration, I tidied it up a bit more (e.g. title case for county names). I also tried playing with the color palette:</p>
+<h2 id="version-4">Version 4</h2>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="viz3_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
 </div>
-<p>I also made the scale colors display in the subtitle rather than in a legend.</p>
+<p>I also thought the plot would be clearer if the scale colors displayed in the subtitle rather than in a legend:</p>
+<h2 id="version-5">Version 5</h2>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="viz3_files/figure-html5/unnamed-chunk-5-1.png" width="624" /></p>
 </div>
-<p>Although this works, I wanted to highlight the counties which saw <strong>increases</strong> in scores vs. the counties that saw <strong>decreases</strong> in scores. This is the main point of the plot and should be immediately evident to the viewer. To do this, I added another <code>geom_line</code> for only those counties that saw decreases. I also reversed the <code>fct_reorder</code> so that counties with increases were at the top and counties with decreases were at the bottom.</p>
-<div class="layout-chunk" data-layout="l-body-outset">
-<p><img src="viz3_files/figure-html5/unnamed-chunk-6-1.png" width="480" data-distill-preview=1 /></p>
+<p>Although this works, I wanted to highlight the counties which saw <strong>increases</strong> in scores vs. the counties that saw <strong>decreases</strong> in scores. This is the main point of the plot and should be immediately evident to the viewer. To do this, I added another <code>geom_line</code> for only those counties that saw decreases. I also reversed the <code>fct_reorder</code> to make it more intuitive, with counties showing increases in scores at the top and counties showing decreases in scores at the bottom:</p>
+<h2 id="final-version">Final Version</h2>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="viz3_files/figure-html5/unnamed-chunk-6-1.png" width="624" data-distill-preview=1 /></p>
 </div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

@@ -58,7 +58,7 @@ d_tidy = d_tidy[-1,]
 
 ```
 
-The purpose of Plot 3 is to see how self-regulation scores have changed over the course of the OKA. I chose to compare the recent data (2018-2019) with data from the first wave of the OKA (2014-2015). 
+The purpose of Visualization 3 is to see how self-regulation scores have changed over the course of the OKA. I chose to compare the recent data (2018-2019) with data from the first wave of the OKA (2014-2015). 
 
 To do so, I first needed to load the 2014-2015 data. I cleaned it in the same way I cleaned my initial (2018-2019) data. Then I joined the two waves. Once the data were joined, I used `pivot_longer` to create  columns for each year so that I could compare across years.
 
@@ -124,7 +124,7 @@ join2 <- join2 %>%
   )
 ```
 
- 
+## Version 1
 ```{r}
 join2 %>%
   group_by(county, Year) %>%
@@ -140,6 +140,7 @@ join2 %>%
 
 But this is difficult to make sense of, particularly because the arrangement of counties in alphabetical order does nothing to help us understand the data. So, I reordered counties by average score: 
 
+## Version 2
 ```{r}
 join2 %>%
   group_by(county, Year) %>%
@@ -160,8 +161,9 @@ join2 %>%
   guides(color = "none")
 
 ```
-But this still isn't super helpful, because counties that saw increases in scores are all mixed up with counties that saw decreases in scores. Instead, I wanted to arrange counties not by average score, but by the change from 2014 to 2018. Hopefully, this would enable the viewer to easily identify counties in which scores may be decreasing, which can inform choices about providing resources to support those locales.   
+But this still isn't super helpful, because counties that saw increases in scores are all mixed up with counties that saw decreases in scores. Instead, I wanted to arrange counties not by average score, but by the change from 2014 to 2018. Hopefully, this would enable the viewer to easily identify counties in which scores may be decreasing, which can inform choices about providing resources to support those locales:
 
+## Version 3
 ```{r }
 
 join2 %>%
@@ -187,8 +189,9 @@ join2 %>%
        y = "Score (on 1-5 scale)")
 ```
 
-That is better, but improvements could also be made in overall readability (e.g. due to plot dimensions, it's hard to tell which dot-line belongs to which county) and other aspects of tidying (e.g. title case for county names). I also tried playing with the color palette.  
+That is better. In the next iteration, I tidied it up a bit more (e.g. title case for county names). I also tried playing with the color palette:
 
+## Version 4
 ```{r }
 
 join2 <- join2 %>%
@@ -221,8 +224,9 @@ join2 %>%
 
 ```
 
-I also made the scale colors display in the subtitle rather than in a legend.  
+I also thought the plot would be clearer if the scale colors displayed in the subtitle rather than in a legend:
 
+## Version 5
 ```{r }
 
 join2 %>%
@@ -260,9 +264,10 @@ join2 %>%
 
 ```
 
-Although this works, I wanted to highlight the counties which saw **increases** in scores vs. the counties that saw **decreases** in scores. This is the main point of the plot and should be immediately evident to the viewer. To do this, I added another `geom_line` for only those counties that saw decreases. I also reversed the `fct_reorder` so that counties with increases were at the top and counties with decreases were at the bottom.    
+Although this works, I wanted to highlight the counties which saw **increases** in scores vs. the counties that saw **decreases** in scores. This is the main point of the plot and should be immediately evident to the viewer. To do this, I added another `geom_line` for only those counties that saw decreases. I also reversed the `fct_reorder` to make it more intuitive, with counties showing increases in scores at the top and counties showing decreases in scores at the bottom:
 
-```{r preview=TRUE, fig.height=5, fig.width=5, layout="l-body-outset"}
+## Final Version
+```{r preview=TRUE}
 
 join2 <- join2 %>%
   group_by(county, Year) %>%

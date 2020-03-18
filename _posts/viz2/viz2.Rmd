@@ -5,7 +5,7 @@ description: |
 author:
   - name: Joanna Wright
     url: https://github.com/jhwrigh23
-date: 03-09-2020
+date: 03-18-2020
 output:
   distill::distill_article:
     self_contained: false
@@ -157,7 +157,7 @@ d2 %>%
 
 ```
 
-This gives us an overall sense of distribution of scores by race. However, to put these numbers in context, it is important to know that some student groups are represented much more strongly than others. A quick plot of totals by student race can tell us this:  
+This gives us an overall sense of distribution of scores by race. However, to put these numbers in context, it is important to know that some student groups are represented much more strongly than others. A quick `reactable` plot of totals by student race can tell us this. Since `reactable` is interactive, you can click on **Total** to reorder groups by number of students. 
 
 ```{r results='hide'}
 
@@ -200,7 +200,7 @@ d2 %>%
 
 ```
 
-Of course, the first step for refining this is the reorder so that it's easier to see which counties show the greatest discrepancy. I used `fct_reorder` and then added `gghighlight` conditions to emphasize counties in which the difference between the two groups was greater than .25. 
+Of course, the first step for refining this is the reorder so that it's easier to see which counties show the greatest discrepancy. I used `fct_reorder` and then experimented with `gghighlight` conditions to emphasize counties in which the difference between the two groups was especially high (in this plot, greater than .25). 
 
 
 ```{r viz2-vers6}
@@ -256,7 +256,7 @@ d2 %>%
 
 ```
 
-It's still hard to tell what the legend means, so I tried this another way: 
+It's still hard to tell what the legend means. Is changing the legend text sufficient to clarify this? 
 
 ```{r}
 
@@ -284,7 +284,7 @@ d2 %>%
   theme_minimal()
 ```
 
-That's getting closer, but the legend still asks too much of the viewer to understand the plot. I tried reducing the cognitive load another way, and adjusted the theme settings to clean up the plot further:  
+That's getting closer, but I thought the legend still asks too much of the viewer to understand the plot. I tried reducing the cognitive load another way by removing the legend and embedding the respective colors in the caption.  
 
 ```{r}
 d2 %>%
@@ -310,15 +310,14 @@ d2 %>%
        caption = "<span style = 'color:#fc8d62;'>White average score higher than Hispanic/Latino </span> 
        <span style = 'color:#66c2a5;'</span> Hispanic/Latino average score higher than White</span>") +
   theme_minimal() +
-  theme(panel.grid.major.y = element_blank(),
-        legend.position = "bottom",
+  theme(legend.position = "bottom",
         plot.title.position = "plot",
         plot.caption = element_markdown())
 ```
 
-I think that's much better in terms of cognitive load. Some final tidying up: 
+I think that's better in terms of cognitive load. Some final tidying up of aspect ratio, layout, color, and title/subtitle: 
 
-```{r, preview=TRUE}
+```{r preview=TRUE, layout="l-body-outset", fig.width=6, fig.height=6}
 d2 %>%
   filter(stu_grp == "White" |
            stu_grp == "Hispanic/Latino") %>%
@@ -335,15 +334,15 @@ d2 %>%
   geom_bar(stat = 'identity',
            show.legend = FALSE) +
   scale_y_continuous(breaks = c(-1, -.75, -.5, -.25, 0, .25, .5)) +
-  scale_fill_brewer(palette = "Set2") +
+  scale_fill_brewer(palette = "Dark2") +
   coord_flip() + 
-  labs(title = "Differences in Average Self-Regulation Scores by Race in Oregon Counties",
+  labs(title = "Differences in Self-Regulation Scores in Oregon",
+       subtitle = "Hispanic/Latino compared to White average scores, 2018-2019 school year",
        x = NULL,
        y = "Difference in scores",
-       caption = "<span style = 'color:#66c2a5;'</span> Hispanic/Latino average score higher than White</span>; <span style = 'color:#fc8d62;'>White average score higher than Hispanic/Latino </span>") +
+       caption = "<span style = 'color:#1b9e77;'</span> Hispanic/Latino average score higher than White</span>; <span style = 'color:#d95f02;'>White average score higher than Hispanic/Latino </span>") +
   theme_minimal() +
-  theme(panel.grid.major.y = element_blank(),
-        legend.position = "bottom",
+  theme(legend.position = "bottom",
         plot.title.position = "plot",
         plot.caption = element_markdown())
 

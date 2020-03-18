@@ -7,32 +7,14 @@
     <description>Data Visualization Winter 2020
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Tue, 10 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 18 Mar 2020 00:00:00 +0000</lastBuildDate>
     <item>
       <title>Set up</title>
       <dc:creator>Joanna Wright</dc:creator>
       <link>https://github.com/jhwrigh23/class_website/posts/1-loading-and-cleaning-the-data</link>
       <description>Here is the code for loading and initial cleaning of the data.</description>
       <guid>https://github.com/jhwrigh23/class_website/posts/1-loading-and-cleaning-the-data</guid>
-      <pubDate>Tue, 10 Mar 2020 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>Visualization #2</title>
-      <dc:creator>Joanna Wright</dc:creator>
-      <link>https://github.com/jhwrigh23/class_website/posts/viz2</link>
-      <description>Comparing self-regulation scores by race</description>
-      <guid>https://github.com/jhwrigh23/class_website/posts/viz2</guid>
-      <pubDate>Mon, 09 Mar 2020 00:00:00 +0000</pubDate>
-      <media:content url="https://github.com/jhwrigh23/class_website/posts/viz2/viz2_files/figure-html5/viz2-vers1-1.png" medium="image" type="image/png" width="1248" height="768"/>
-    </item>
-    <item>
-      <title>Visualization #3</title>
-      <dc:creator>Joanna Wright</dc:creator>
-      <link>https://github.com/jhwrigh23/class_website/posts/viz3</link>
-      <description>Plotting change in self-regulation scores from 2014 to 2018</description>
-      <guid>https://github.com/jhwrigh23/class_website/posts/viz3</guid>
-      <pubDate>Mon, 09 Mar 2020 00:00:00 +0000</pubDate>
-      <media:content url="https://github.com/jhwrigh23/class_website/posts/viz3/viz3_files/figure-html5/unnamed-chunk-6-1.png" medium="image" type="image/png" width="960" height="960"/>
+      <pubDate>Wed, 18 Mar 2020 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Visualization #1</title>
@@ -40,8 +22,26 @@
       <link>https://github.com/jhwrigh23/class_website/posts/viz1</link>
       <description>Mapping self-regulation scores by county</description>
       <guid>https://github.com/jhwrigh23/class_website/posts/viz1</guid>
-      <pubDate>Wed, 26 Feb 2020 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 18 Mar 2020 00:00:00 +0000</pubDate>
       <media:content url="https://github.com/jhwrigh23/class_website/posts/viz1/viz1_files/figure-html5/unnamed-chunk-4-1.png" medium="image" type="image/png" width="1248" height="1536"/>
+    </item>
+    <item>
+      <title>Visualization #2</title>
+      <dc:creator>Joanna Wright</dc:creator>
+      <link>https://github.com/jhwrigh23/class_website/posts/viz2</link>
+      <description>Comparing self-regulation scores by race</description>
+      <guid>https://github.com/jhwrigh23/class_website/posts/viz2</guid>
+      <pubDate>Wed, 18 Mar 2020 00:00:00 +0000</pubDate>
+      <media:content url="https://github.com/jhwrigh23/class_website/posts/viz2/viz2_files/figure-html5/unnamed-chunk-7-1.png" medium="image" type="image/png" width="1152" height="1152"/>
+    </item>
+    <item>
+      <title>Visualization #3</title>
+      <dc:creator>Joanna Wright</dc:creator>
+      <link>https://github.com/jhwrigh23/class_website/posts/viz3</link>
+      <description>Plotting change in self-regulation scores from 2014 to 2018</description>
+      <guid>https://github.com/jhwrigh23/class_website/posts/viz3</guid>
+      <pubDate>Wed, 18 Mar 2020 00:00:00 +0000</pubDate>
+      <media:content url="https://github.com/jhwrigh23/class_website/posts/viz3/viz3_files/figure-html5/unnamed-chunk-6-1.png" medium="image" type="image/png" width="960" height="960"/>
     </item>
   </channel>
 </rss>

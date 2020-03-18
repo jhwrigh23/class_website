@@ -25,8 +25,8 @@
   
   
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2020-03-09"/>
-  <meta property="article:created" itemprop="dateCreated" content="2020-03-09"/>
+  <meta property="article:published" itemprop="datePublished" content="2020-03-18"/>
+  <meta property="article:created" itemprop="dateCreated" content="2020-03-18"/>
   <meta name="article:author" content="Joanna Wright"/>
   
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -44,7 +44,7 @@
   <!--radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Visualization #2"]},{"type":"character","attributes":{},"value":["Comparing self-regulation scores by race\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Joanna Wright"]},{"type":"character","attributes":{},"value":["https://github.com/jhwrigh23"]}]}]},{"type":"character","attributes":{},"value":["03-09-2020"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Visualization #2"]},{"type":"character","attributes":{},"value":["Comparing self-regulation scores by race\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Joanna Wright"]},{"type":"character","attributes":{},"value":["https://github.com/jhwrigh23"]}]}]},{"type":"character","attributes":{},"value":["03-18-2020"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -948,7 +948,7 @@
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Visualization #2","description":"Comparing self-regulation scores by race","authors":[{"author":"Joanna Wright","authorURL":"https://github.com/jhwrigh23","affiliation":"&nbsp;","affiliationURL":"#"}],"publishedDate":"2020-03-09T00:00:00.000-07:00","citationText":"Wright, 2020"}
+{"title":"Visualization #2","description":"Comparing self-regulation scores by race","authors":[{"author":"Joanna Wright","authorURL":"https://github.com/jhwrigh23","affiliation":"&nbsp;","affiliationURL":"#"}],"publishedDate":"2020-03-18T00:00:00.000-07:00","citationText":"Wright, 2020"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -965,7 +965,7 @@
 <div class="d-byline">
   Joanna Wright <a href="https://github.com/jhwrigh23" class="uri">https://github.com/jhwrigh23</a> 
   
-<br/>03-09-2020
+<br/>03-18-2020
 </div>
 
 <div class="d-article">
@@ -1004,20 +1004,20 @@ library(ggtext)</code></pre>
 <div class="layout-chunk" data-layout="l-screen-inset">
 <p><img src="viz2_files/figure-html5/vs2-1.png" width="1248" /></p>
 </div>
-<p>This gives us an overall sense of distribution of scores by race. However, to put these numbers in context, it is important to know that some student groups are represented much more strongly than others. A quick plot of totals by student race can tell us this:</p>
+<p>This gives us an overall sense of distribution of scores by race. However, to put these numbers in context, it is important to know that some student groups are represented much more strongly than others. A quick <code>reactable</code> plot of totals by student race can tell us this. Since <code>reactable</code> is interactive, you can click on <strong>Total</strong> to reorder groups by number of students.</p>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<div id="htmlwidget-b8cbbeaffe78271daf5a" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-b8cbbeaffe78271daf5a">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Race":["American Indian/Alaska Native","Asian","Black/African American","Hispanic/Latino","Multi-Racial","Native Hawaiian/Pacific Islander","White"],"Total":[26,93,61,542,258,22,867]},"columns":[{"accessor":"Race","name":"Race","type":"character"},{"accessor":"Total","name":"Total","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"e79b7ed91e7bd07a7908c99bd852f368"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2891e05f1f10774248d9" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-2891e05f1f10774248d9">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Race":["American Indian/Alaska Native","Asian","Black/African American","Hispanic/Latino","Multi-Racial","Native Hawaiian/Pacific Islander","White"],"Total":[26,93,61,542,258,22,867]},"columns":[{"accessor":"Race","name":"Race","type":"character"},{"accessor":"Total","name":"Total","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"e79b7ed91e7bd07a7908c99bd852f368"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 <p>Given that White and Hispanic/Latino students make up a large proportion of the student population in this sample, I decided to look at difference in self-regulation scores between these groups. Like the other visualizations, I wanted to look at these differences across counties to see if there are particular counties for whom one group of students is scoring much higher or lower than the other.</p>
 <p>First, I calculated the difference by subtracting the average Hispanic/Latino scores from the average White scores for each county and made an initial plot of the results:</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="viz2_files/figure-html5/viz2-1.png" width="624" /></p>
 </div>
-<p>Of course, the first step for refining this is the reorder so that it’s easier to see which counties show the greatest discrepancy. I used <code>fct_reorder</code> and then added <code>gghighlight</code> conditions to emphasize counties in which the difference between the two groups was greater than .25.</p>
+<p>Of course, the first step for refining this is the reorder so that it’s easier to see which counties show the greatest discrepancy. I used <code>fct_reorder</code> and then experimented with <code>gghighlight</code> conditions to emphasize counties in which the difference between the two groups was especially high (in this plot, greater than .25).</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="viz2_files/figure-html5/viz2-vers6-1.png" width="624" /></p>
 </div>
@@ -1025,17 +1025,17 @@ library(ggtext)</code></pre>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="viz2_files/figure-html5/viz2-vers7-1.png" width="624" /></p>
 </div>
-<p>It’s still hard to tell what the legend means, so I tried this another way:</p>
+<p>It’s still hard to tell what the legend means. Is changing the legend text sufficient to clarify this?</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="viz2_files/figure-html5/unnamed-chunk-5-1.png" width="624" /></p>
 </div>
-<p>That’s getting closer, but the legend still asks too much of the viewer to understand the plot. I tried reducing the cognitive load another way, and adjusted the theme settings to clean up the plot further:</p>
+<p>That’s getting closer, but I thought the legend still asks too much of the viewer to understand the plot. I tried reducing the cognitive load another way by removing the legend and embedding the respective colors in the caption.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="viz2_files/figure-html5/unnamed-chunk-6-1.png" width="624" /></p>
 </div>
-<p>I think that’s much better in terms of cognitive load. Some final tidying up:</p>
-<div class="layout-chunk" data-layout="l-body">
-<p><img src="viz2_files/figure-html5/unnamed-chunk-7-1.png" width="624" /></p>
+<p>I think that’s better in terms of cognitive load. Some final tidying up:</p>
+<div class="layout-chunk" data-layout="l-body-outset">
+<p><img src="viz2_files/figure-html5/unnamed-chunk-7-1.png" width="576" data-distill-preview=1 /></p>
 </div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

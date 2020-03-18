@@ -15,16 +15,14 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-Here are the libraries I used for this post: 
-```{r echo=TRUE}
 
+```{r libraries, echo=TRUE}
 library(tidyverse)
 library(rio)
 library(here)
 library(janitor)
 library(gt)
 library(ggrepel)
-
 ```
 
 
@@ -75,6 +73,7 @@ d2 <- d_tidy %>%
 The purpose of Plot 2 is to explore variation in self-regulation scores by race in Oregon. 
 
 First, just to get an overall sense of the data, I plotted average scores by race. 
+
 ```{r viz2-vers1}
 
 d2 %>%
@@ -122,28 +121,67 @@ d2 %>%
   theme(plot.title = element_text(hjust = 1)) +
   theme(legend.position = "none") 
 
-d2 %>%
-  ggplot(aes(avg_self_reg)) +
-  geom_density(aes(fill = stu_grp, bw = .5)) +
-  facet_wrap(~stu_grp) + 
-  theme_minimal() + 
-  scale_color_brewer() +
-  guides(color = "none")
 ```
 
-To put these numbers in context, it is important to know that some student groups are represented much more strongly than others. 
-
-```{r}
+```{r, fig.width=13, fig.height=4}
 
 d2 %>%
+  ggplot(aes(avg_self_reg)) +
+  geom_density(aes(fill = stu_grp, bw = .5),
+               show.legend = FALSE) +
+  facet_wrap(~stu_grp, nrow = 1) + 
+  theme_minimal() + 
+  scale_color_brewer()
+
+```
+
+I refined what I thought was the most effective distribution plot further by changing the y-axis to proportion, making y-axis labels percentages, and making the plot larger:  
+
+```{r, vs2, layout = "l-page", fig.width=13, fig.height=4}
+
+d2 %>%
+  ggplot(aes(avg_self_reg)) +
+  geom_density(aes(y = ..scaled..,
+                   fill = stu_grp, 
+                   bw = .5),
+                  show.legend = FALSE) +
+  facet_wrap(~stu_grp, nrow = 1) + 
+  theme_minimal() + 
+  scale_color_brewer() +
+  labs(title = "Distributions of Self-Regulation Scores by Race in Oregon",
+       subtitle = "Averages from 2018-2019 school year",
+       x = "Self-Regulation Score (on a 1-5 scale)",
+       y = NULL) +
+  theme(axis.text=element_text(size=12),
+        axis.title=element_text(size=14)) +
+  scale_y_continuous(name = "Percentage", labels=scales::percent)
+
+```
+
+This gives us an overall sense of distribution of scores by race. However, to put these numbers in context, it is important to know that some student groups are represented much more strongly than others. A quick plot of totals by student race can tell us this:  
+
+```{r results='hide'}
+
+ d2 %>%
   group_by(stu_grp) %>%
   count()
+
+counts <- d2 %>%
+  group_by(stu_grp) %>%
+  count() %>%
+  rename(Race = stu_grp,
+         Total = n)
              
 ```
 
-I decided to look at difference in self-regulation scores between the largest student groups represented (White, Hispanic/Latino).  
 
-```{r viz2-vers5}
+```{r}
+reactable::reactable(counts)
+```
+
+Given that White and Hispanic/Latino students make up a large proportion of the student population in this sample, I decided to look at difference in self-regulation scores between these groups. 
+
+```{r viz2}
 
 d2 %>%
   filter(stu_grp == "White" |

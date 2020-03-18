@@ -49,7 +49,7 @@
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["viz2/bowser-1.9.3/bowser.min.js","viz2/distill-2.2.21/template.v2.js","viz2/figure-html5/viz2-1.png","viz2/figure-html5/viz2-alternative-1.png","viz2/jquery-1.11.3/jquery.min.js","viz2/webcomponents-2.0.0/webcomponents.js","viz2_files/bowser-1.9.3/bowser.min.js","viz2_files/distill-2.2.21/template.v2.js","viz2_files/figure-html5/unnamed-chunk-2-1.png","viz2_files/figure-html5/unnamed-chunk-3-1.png","viz2_files/figure-html5/unnamed-chunk-4-1.png","viz2_files/figure-html5/unnamed-chunk-5-1.png","viz2_files/figure-html5/viz2-alternative-1.png","viz2_files/figure-html5/viz2-alternative-2.png","viz2_files/figure-html5/viz2-vers1-1.png","viz2_files/figure-html5/viz2-vers2-3-4-1.png","viz2_files/figure-html5/viz2-vers2-3-4-2.png","viz2_files/figure-html5/viz2-vers2-3-4-3.png","viz2_files/figure-html5/viz2-vers5-1.png","viz2_files/figure-html5/viz2-vers6-1.png","viz2_files/figure-html5/viz2-vers7-1.png","viz2_files/figure-html5/viz2-vers8-1.png","viz2_files/figure-html5/viz2-vers9-1.png","viz2_files/jquery-1.11.3/jquery.min.js","viz2_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["viz2/bowser-1.9.3/bowser.min.js","viz2/distill-2.2.21/template.v2.js","viz2/figure-html5/viz2-1.png","viz2/figure-html5/viz2-alternative-1.png","viz2/jquery-1.11.3/jquery.min.js","viz2/webcomponents-2.0.0/webcomponents.js","viz2_files/bowser-1.9.3/bowser.min.js","viz2_files/core-js-2.5.3/LICENSE","viz2_files/core-js-2.5.3/package.json","viz2_files/core-js-2.5.3/shim.min.js","viz2_files/distill-2.2.21/template.v2.js","viz2_files/figure-html5/l-page-1.png","viz2_files/figure-html5/unnamed-chunk-2-1.png","viz2_files/figure-html5/unnamed-chunk-3-1.png","viz2_files/figure-html5/unnamed-chunk-4-1.png","viz2_files/figure-html5/unnamed-chunk-5-1.png","viz2_files/figure-html5/viz2-1.png","viz2_files/figure-html5/viz2-alternative-1.png","viz2_files/figure-html5/viz2-alternative-2.png","viz2_files/figure-html5/viz2-vers1-1.png","viz2_files/figure-html5/viz2-vers2-3-4-1.png","viz2_files/figure-html5/viz2-vers2-3-4-2.png","viz2_files/figure-html5/viz2-vers2-3-4-3.png","viz2_files/figure-html5/viz2-vers2-3-4-4.png","viz2_files/figure-html5/viz2-vers5-1.png","viz2_files/figure-html5/viz2-vers6-1.png","viz2_files/figure-html5/viz2-vers7-1.png","viz2_files/figure-html5/viz2-vers8-1.png","viz2_files/figure-html5/viz2-vers9-1.png","viz2_files/figure-html5/vs2-1.png","viz2_files/figure-html5/vs2, l-page-1.png","viz2_files/htmlwidgets-1.5.1/htmlwidgets.js","viz2_files/jquery-1.11.3/jquery.min.js","viz2_files/react-16.12.0/AUTHORS","viz2_files/react-16.12.0/LICENSE.txt","viz2_files/react-16.12.0/react-dom.min.js","viz2_files/react-16.12.0/react.min.js","viz2_files/reactable-binding-0.1.0/reactable.js","viz2_files/reactwidget-1.0.0/react-tools.js","viz2_files/reactwidget-1.0.0/react-tools.js.map","viz2_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -927,6 +927,12 @@
   </script>
   
   <!--/radix_placeholder_distill-->
+  <script src="viz2_files/core-js-2.5.3/shim.min.js"></script>
+  <script src="viz2_files/react-16.12.0/react.min.js"></script>
+  <script src="viz2_files/react-16.12.0/react-dom.min.js"></script>
+  <script src="viz2_files/reactwidget-1.0.0/react-tools.js"></script>
+  <script src="viz2_files/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+  <script src="viz2_files/reactable-binding-0.1.0/reactable.js"></script>
   <script src="viz2_files/jquery-1.11.3/jquery.min.js"></script>
   <script src="viz2_files/bowser-1.9.3/bowser.min.js"></script>
   <script src="viz2_files/webcomponents-2.0.0/webcomponents.js"></script>
@@ -963,31 +969,25 @@
 </div>
 
 <div class="d-article">
-Here are the libraries I used for this post:
 <div class="layout-chunk" data-layout="l-body">
-
+<pre class="r"><code>
+library(tidyverse)
+library(rio)
+library(here)
+library(janitor)
+library(gt)
+library(ggrepel)</code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code>
-&#39;data.frame&#39;:   6160 obs. of  9 variables:
- $ county      : chr  &quot;All Counties&quot; &quot;All Counties&quot; &quot;All Counties&quot; &quot;All Counties&quot; ...
- $ district_id : chr  &quot;9999&quot; &quot;9999&quot; &quot;9999&quot; &quot;9999&quot; ...
- $ district    : chr  &quot;Statewide&quot; &quot;Statewide&quot; &quot;Statewide&quot; &quot;Statewide&quot; ...
- $ inst_id     : chr  &quot;9999&quot; &quot;9999&quot; &quot;9999&quot; &quot;9999&quot; ...
- $ inst_name   : chr  &quot;Statewide&quot; &quot;Statewide&quot; &quot;Statewide&quot; &quot;Statewide&quot; ...
- $ inst_type   : chr  &quot;State&quot; &quot;State&quot; &quot;State&quot; &quot;State&quot; ...
- $ stu_grp_type: chr  &quot;Total Population&quot; &quot;Race/Ethnicity&quot; &quot;Race/Ethnicity&quot; &quot;Race/Ethnicity&quot; ...
- $ stu_grp     : chr  &quot;Total Population&quot; &quot;Asian&quot; &quot;Black/African American&quot; &quot;Hispanic/Latino&quot; ...
- $ avg_self_reg: chr  &quot;3.5&quot; &quot;3.7&quot; &quot;3.3&quot; &quot;3.4&quot; ...</code></pre>
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
+
 </div>
 <p>The purpose of Plot 2 is to explore variation in self-regulation scores by race in Oregon.</p>
-<p>Because the student group variable included both racial and gender categories, the first step was to filter for only race categories.</p>
-<div class="layout-chunk" data-layout="l-body">
-
-</div>
 <p>First, just to get an overall sense of the data, I plotted average scores by race.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="viz2_files/figure-html5/viz2-vers1-1.png" width="624" /></p>
@@ -996,24 +996,24 @@ Here are the libraries I used for this post:
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="viz2_files/figure-html5/viz2-vers2-3-4-1.png" width="624" /><img src="viz2_files/figure-html5/viz2-vers2-3-4-2.png" width="624" /><img src="viz2_files/figure-html5/viz2-vers2-3-4-3.png" width="624" /></p>
 </div>
-<p>To put these numbers in context, it is important to know that some student groups are represented much more strongly than others.</p>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code>
-# A tibble: 7 x 2
-# Groups:   stu_grp [7]
-  stu_grp                              n
-  &lt;chr&gt;                            &lt;int&gt;
-1 American Indian/Alaska Native       26
-2 Asian                               93
-3 Black/African American              61
-4 Hispanic/Latino                    542
-5 Multi-Racial                       258
-6 Native Hawaiian/Pacific Islander    22
-7 White                              867</code></pre>
+<p><img src="viz2_files/figure-html5/unnamed-chunk-2-1.png" width="1248" /></p>
 </div>
-<p>I decided to look at difference in self-regulation scores between the largest student groups represented (White, Hispanic/Latino).</p>
+<p>Change the y-axis to proportion, make y-axis labels a pergentage:</p>
+<div class="layout-chunk" data-layout="l-page">
+<p><img src="viz2_files/figure-html5/vs2-1.png" width="1248" /></p>
+</div>
+<p>This gives us an overall sense of distribution of scores by race. However, to put these numbers in context, it is important to know that some student groups are represented much more strongly than others.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="viz2_files/figure-html5/viz2-vers5-1.png" width="624" /></p>
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div id="htmlwidget-fc823078eccc45c3ddf4" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-fc823078eccc45c3ddf4">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Race":["American Indian/Alaska Native","Asian","Black/African American","Hispanic/Latino","Multi-Racial","Native Hawaiian/Pacific Islander","White"],"Total":[26,93,61,542,258,22,867]},"columns":[{"accessor":"Race","name":"Race","type":"character"},{"accessor":"Total","name":"Total","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"e79b7ed91e7bd07a7908c99bd852f368"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+<p>Given that White and Hispanic/Latino students make up a large proportion of the student population in this sample, I decided to look at difference in self-regulation scores between these groups.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="viz2_files/figure-html5/viz2-1.png" width="624" /></p>
 </div>
 <p>Refining the plot to highlight counties in which there is the largest score difference between White and Hispanic/Latino students.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -1028,7 +1028,7 @@ Here are the libraries I used for this post:
 <p><img src="viz2_files/figure-html5/viz2-vers8-1.png" width="624" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="viz2_files/figure-html5/unnamed-chunk-3-1.png" width="624" data-distill-preview=1 /></p>
+<p><img src="viz2_files/figure-html5/unnamed-chunk-5-1.png" width="624" data-distill-preview=1 /></p>
 </div>
 <p>This is getting pretty close! I’d still like to change the caption to reduce cognitive load - make it super clear what data are depicted.</p>
 <!--radix_placeholder_article_footer-->

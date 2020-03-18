@@ -12,7 +12,7 @@
     "date": "2020-03-10",
     "categories": [],
     "preview": {},
-    "last_modified": "2020-03-10T20:25:53-07:00"
+    "last_modified": "2020-03-18T08:05:59-07:00"
   },
   {
     "path": "posts/viz2/",
@@ -26,8 +26,8 @@
     ],
     "date": "2020-03-09",
     "categories": [],
-    "preview": "posts/viz2/viz2_files/figure-html5/unnamed-chunk-3-1.png",
-    "last_modified": "2020-03-17T10:51:38-07:00",
+    "preview": "posts/viz2/viz2_files/figure-html5/unnamed-chunk-5-1.png",
+    "last_modified": "2020-03-18T08:58:12-07:00",
     "preview_width": 1248,
     "preview_height": 768
   },
@@ -61,8 +61,8 @@
     "date": "2020-02-26",
     "categories": [],
     "preview": "posts/viz1/viz1_files/figure-html5/unnamed-chunk-4-1.png",
-    "last_modified": "2020-03-17T13:03:15-07:00",
+    "last_modified": "2020-03-18T08:11:58-07:00",
     "preview_width": 1248,
-    "preview_height": 1344
+    "preview_height": 1536
   }
 ]

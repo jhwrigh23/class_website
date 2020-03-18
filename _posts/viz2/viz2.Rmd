@@ -74,10 +74,15 @@ d2 <- d_tidy %>%
 
 ```
 
-The purpose of Plot 2 is to explore variation in self-regulation scores by race in Oregon. 
+The purpose of Visualization 2 is to explore variation in self-regulation scores by race in Oregon. I ended up taking two different approaches to this: 
+1. Overall distrubtion by race
+2. Comparison of White aned Hispanic/Latino scores
+
+## Approach 1: Overall distrbution by race
 
 First, just to get an overall sense of the data, I plotted average scores by race. 
 
+### Version 1
 ```{r viz2-vers1}
 
 d2 %>%
@@ -92,8 +97,9 @@ d2 %>%
 
 ```
 
-To explore the data further, I  plotted distributions in a couple of difference ways.  
+To explore the data further, I experimented with plotting distributions in a couple of difference ways.  
 
+### Versions 2
 ```{r viz2-vers2-3-4}
 
 d2 %>%
@@ -110,6 +116,10 @@ ggplot(aes(avg_self_reg, fct_reorder(stu_grp, avg_self_reg))) +
        x = NULL,
        y = NULL)
 
+```
+
+### Version 3
+```{r}
 
 d2 %>%
   ggplot(aes(avg_self_reg, fct_reorder(stu_grp, avg_self_reg), fill = stu_grp)) +
@@ -121,10 +131,9 @@ d2 %>%
   scale_color_brewer(palette = "Accent") +
   theme(plot.title = element_text(hjust = 1)) +
   theme(legend.position = "none") 
-
 ```
 
-
+### Version 4
 ```{r, layout="l-screen-inset", fig.width=13, fig.height=5}
 
 d2 %>%
@@ -148,8 +157,9 @@ d2 %>%
 
 ```
 
-Of the three of these, I actually liked the first one the best for comparing overall distributions. So I returned to the first one and refined it by adding color, taking the extra space out of the scale, and adjusting aspect ratio and layout. 
+Of these three, I thought the first one was most effective for comparing overall distributions. So I refined it by adding color, taking the extra space out of the scale, and adjusting aspect ratio and layout. 
 
+### Version 5
 ```{r, preview=TRUE, layout="l-page", fig.height=7, fig.width=10}
 
 d2 %>%
@@ -170,7 +180,6 @@ ggplot(aes(avg_self_reg, fct_reorder(stu_grp, avg_self_reg), fill = stu_grp)) +
 
 
 ```
-
 
 This gives us an overall sense of distribution of scores by race. However, to put these numbers in context, it is important to know that some student groups are represented much more strongly than others. A quick `reactable` plot of totals by student race can tell us this. Since `reactable` is interactive, you can click on **Total** to reorder groups by number of students. 
 
@@ -193,10 +202,13 @@ counts <- d2 %>%
 reactable::reactable(counts)
 ```
 
-Given that White and Hispanic/Latino students make up a large proportion of the student population in this sample, I decided to look at difference in self-regulation scores between these groups. Like the other visualizations, I wanted to look at these differences across counties to see if there are particular counties for whom one group of students is scoring much higher or lower than the other.
+## Approach 2: Comparison of White and Hispanic/Latino scores
+
+The table above shows that White and Hispanic/Latino students make up a large proportion of the student population in this sample. Therefore, I decided to look at difference in self-regulation scores between these groups. Like the other visualizations, I wanted to look at these differences across counties to see if there are particular counties for whom one group of students is scoring much higher or lower than the other.
 
 First, I calculated the difference by subtracting the average Hispanic/Latino scores from the average White scores for each county and made an initial plot of the results:
 
+### Version 1 
 ```{r viz2}
 
 d2 %>%
@@ -217,7 +229,7 @@ d2 %>%
 
 Of course, the first step for refining this is the reorder so that it's easier to see which counties show the greatest discrepancy. I used `fct_reorder` and then experimented with `gghighlight` conditions to emphasize counties in which the difference between the two groups was especially high (in this plot, greater than .25). 
 
-
+### Version 2
 ```{r viz2-vers6}
 
 d2 %>%
@@ -247,6 +259,7 @@ d2 %>%
 
 But this doesn't tell us which counties show White students scoring higher than Hispanic/Latino, and which show the opposite trend. I thought maybe a legend could help with this. 
 
+## Version 3 
 ```{r viz2-vers7}
 
 d2 %>%
@@ -273,6 +286,7 @@ d2 %>%
 
 It's still hard to tell what the legend means. Is changing the legend text sufficient to clarify this? 
 
+### Version 4
 ```{r}
 
 d2 %>%
@@ -299,8 +313,10 @@ d2 %>%
   theme_minimal()
 ```
 
+
 That's getting closer, but I thought the legend still asks too much of the viewer to understand the plot. I tried reducing the cognitive load another way by removing the legend and embedding the respective colors in the caption.  
 
+### Version 5
 ```{r}
 d2 %>%
   filter(stu_grp == "White" |
@@ -332,6 +348,7 @@ d2 %>%
 
 I think that's better in terms of cognitive load. Some final tidying up of aspect ratio, layout, color, and title/subtitle: 
 
+### Final Version 
 ```{r, layout="l-body-outset", fig.width=6, fig.height=6}
 d2 %>%
   filter(stu_grp == "White" |

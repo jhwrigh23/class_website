@@ -59,7 +59,7 @@ str(d_tidy)
 d_tidy$avg_self_reg = as.numeric(d_tidy$avg_self_reg)
 ```
 
-The purpose of Plot 1 is to explore differences in average self-regulation scores across counties and represent this geographically. A geographic heat map could be a useful way of quickly getting a sense of higher and lower scores across the state. To do this, I joined my data with OR county mapping data. The initial map looked like this: 
+The purpose of Plot 1 is to explore differences in average self-regulation scores across counties and represent this geographically. A geographic heat map could be a useful way of quickly getting a sense of higher and lower scores across the state. To do this, I joined my data with OR county mapping data. Here's the initial map. 
 
 ```{r viz1-joining, results='hide'}
 counties <- map_data("county")
@@ -87,7 +87,7 @@ d1 <- d1 %>%
 
 join1 <- left_join(d1, or_county)
 ```
-
+### Version 1
 ```{r viz1-vers1}
 join1 %>%
 ggplot() + 
@@ -107,6 +107,7 @@ ggplot() +
 
 Of course, the map would be much more informative if the counties were labeled. But clearly this was easier said than done. 
 
+### Version 2
 ```{r viz1-vers2}
 join1 %>%
 ggplot() + 
@@ -127,6 +128,7 @@ ggplot() +
 Beautiful, right?!?! 
 I needed to create centroid data in order to label counties properly.
 
+### Version 3
 ```{r viz1-vers3}
 getLabelPoint <- function(county) {Polygon(county[c('long', 'lat')])@labpt}
 df <- map_data('county', 'oregon')
@@ -160,6 +162,7 @@ scale_fill_viridis_c(name = "Score (1-5 scale)",
 
 While this accomplished what I wanted it to functionally, it doesn't look very nice. The blue labels are difficult to read against this these scale colors. I tried out a couple of different palettes.   
 
+### Version 4
 ```{r}
 join3 %>%
 ggplot() + 
@@ -181,6 +184,7 @@ scale_fill_viridis_c(name = "Score (1-5 scale)") +
         rect = element_blank())
 ```
 
+### Version 5
 ```{r}
 join3 %>%
 ggplot() + 
@@ -204,8 +208,9 @@ scale_fill_distiller(name = "Score (1-5 scale)",
         rect = element_blank())
 ```
 
-This is getting closer to what I want. It uses a color-blind accessible palette, represents the sequential scale using colors that diverge from the middle, and allows us to read the labels clearly. However, I'd like to make the color scale more intuitive by making red hues represent lower scores and blue hues represent higher scores. This was an easy fix using `direction = "horizontal"`. 
+Version 5 is getting closer to what I want. It uses a color-blind accessible palette, represents the sequential scale using colors that diverge from the middle, and allows us to read the labels clearly. However, I'd like to make the color scale more intuitive by making red hues represent lower scores and blue hues represent higher scores. This was an easy fix using `direction = "horizontal"`. 
 
+### Version 6
 ```{r}
 join3 %>%
 ggplot() + 
@@ -232,6 +237,7 @@ scale_fill_distiller(name = "Score (1-5 scale)",
 
 Last, I made some final refinements for easy readability, including adjusting aspect ratios, editing the title, adding a subtitle and caption, making the county labels larger, using `str_to_title` for county names, and putting the legend on the bottom. I used `layout="l-body=outset"` in the code chunk settings which increased the figure size nicely. I also used the `geom_text` argument `check_overlap = TRUE` to manage the issue of county labels overlapping. This isn't a full soluation, because it results in a couple of counties being unlabeled. But it was the best solution I could find for now, and it at least has most counties labeled and makes the map legible.
 
+### Final Version
 ```{r, preview=TRUE, layout="l-body-outset", fig.height=8, fig.width=7}
 
 join3 <- join3 %>%

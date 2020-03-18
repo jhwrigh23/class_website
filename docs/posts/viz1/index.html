@@ -1345,7 +1345,7 @@ library(sf)
 library(sp)</code></pre>
 </div>
 <aside>
-Liraries used for this post:
+Liraries used for this post
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 
@@ -1353,33 +1353,40 @@ Liraries used for this post:
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
-<p>The purpose of Plot 1 is to explore differences in average self-regulation scores across counties and represent this geographically. A geographic heat map could be a useful way of quickly getting a sense of higher and lower scores across the state. To do this, I joined my data with OR county mapping data. The initial map looked like this:</p>
+<p>The purpose of Plot 1 is to explore differences in average self-regulation scores across counties and represent this geographically. A geographic heat map could be a useful way of quickly getting a sense of higher and lower scores across the state. To do this, I joined my data with OR county mapping data. Here’s the initial map.</p>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
+<h3 id="version-1">Version 1</h3>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="viz1_files/figure-html5/viz1-vers1-1.png" width="624" /></p>
 </div>
 <p>Of course, the map would be much more informative if the counties were labeled. But clearly this was easier said than done.</p>
+<h3 id="version-2">Version 2</h3>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="viz1_files/figure-html5/viz1-vers2-1.png" width="624" /></p>
 </div>
 <p>Beautiful, right?!?! I needed to create centroid data in order to label counties properly.</p>
+<h3 id="version-3">Version 3</h3>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="viz1_files/figure-html5/viz1-vers3-1.png" width="624" /></p>
 </div>
 <p>While this accomplished what I wanted it to functionally, it doesn’t look very nice. The blue labels are difficult to read against this these scale colors. I tried out a couple of different palettes.</p>
+<h3 id="version-4">Version 4</h3>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="viz1_files/figure-html5/unnamed-chunk-1-1.png" width="624" /></p>
 </div>
+<h3 id="version-5">Version 5</h3>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="viz1_files/figure-html5/unnamed-chunk-2-1.png" width="624" /></p>
 </div>
-<p>This is getting closer to what I want. It uses a color-blind accessible palette, represents the sequential scale using colors that diverge from the middle, and allows us to read the labels clearly. However, I’d like to make the color scale more intuitive by making red hues represent lower scores and blue hues represent higher scores. This was an easy fix using <code>direction = &quot;horizontal&quot;</code>.</p>
+<p>Version 5 is getting closer to what I want. It uses a color-blind accessible palette, represents the sequential scale using colors that diverge from the middle, and allows us to read the labels clearly. However, I’d like to make the color scale more intuitive by making red hues represent lower scores and blue hues represent higher scores. This was an easy fix using <code>direction = &quot;horizontal&quot;</code>.</p>
+<h3 id="version-6">Version 6</h3>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="viz1_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
 </div>
 <p>Last, I made some final refinements for easy readability, including adjusting aspect ratios, editing the title, adding a subtitle and caption, making the county labels larger, using <code>str_to_title</code> for county names, and putting the legend on the bottom. I used <code>layout=&quot;l-body=outset&quot;</code> in the code chunk settings which increased the figure size nicely. I also used the <code>geom_text</code> argument <code>check_overlap = TRUE</code> to manage the issue of county labels overlapping. This isn’t a full soluation, because it results in a couple of counties being unlabeled. But it was the best solution I could find for now, and it at least has most counties labeled and makes the map legible.</p>
+<h3 id="final-version">Final Version</h3>
 <div class="layout-chunk" data-layout="l-body-outset">
 <p><img src="viz1_files/figure-html5/unnamed-chunk-4-1.png" width="672" data-distill-preview=1 /></p>
 </div>

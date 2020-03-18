@@ -267,7 +267,7 @@ join2 %>%
 Although this works, I wanted to highlight the counties which saw **increases** in scores vs. the counties that saw **decreases** in scores. This is the main point of the plot and should be immediately evident to the viewer. To do this, I added another `geom_line` for only those counties that saw decreases. I also reversed the `fct_reorder` to make it more intuitive, with counties showing increases in scores at the top and counties showing decreases in scores at the bottom:
 
 ## Final Version
-```{r preview=TRUE}
+```{r preview=TRUE, fig.width=3, fig.height=3}
 
 join2 <- join2 %>%
   group_by(county, Year) %>%

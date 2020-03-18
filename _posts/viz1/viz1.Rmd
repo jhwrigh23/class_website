@@ -87,6 +87,7 @@ d1 <- d1 %>%
 
 join1 <- left_join(d1, or_county)
 ```
+
 ### Version 1
 ```{r viz1-vers1}
 join1 %>%

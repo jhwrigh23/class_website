@@ -24,8 +24,10 @@ library(janitor)
 library(maps)
 library(mapdata)
 library(ggtext)
-
 ```
+<aside>
+Liraries used for this post
+</aside>
 
 ```{r loading-the-data, echo=FALSE, results='hide'}
 

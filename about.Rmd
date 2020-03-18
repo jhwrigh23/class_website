@@ -26,5 +26,10 @@ Thank you for exploring my (*_novice!_*) forays into data visualization in R. Th
 
 This is how I felt about getting started:
 
-! [Alt text](/Users/joannawright/Desktop/PhD Winter 2020/EDLD 610 Winter 2020/class_website/images/1_W49jgra8F6xKnFvylyrodw.png)
+```{r}
+knitr::include_graphics("images/1_W49jgra8F6xKnFvylyrodw.png")
+
+```
+
+
 
